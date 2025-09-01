@@ -1,5 +1,5 @@
 <div id="outer">
-    <?php include __DIR__ . '/partials/navbar.php'; ?>
+    <?php include __DIR__ . '/../partials/navbar.php'; ?>
 
     <button aria-label="small-devices-navigation-button" class="navbar-button collapsed" type="button">
         <span class="menu_icon">
@@ -122,98 +122,22 @@
             </div>
         </section>
 
-        <?php /* <section class="gallery-section section parallax-window" data-parallax="scroll" data-image-src="img/section-3-bg.jpg" id="testimonies">
+        <section class="gallery-section section parallax-window" data-parallax="scroll" data-image-src="img/section-3-bg.jpg" id="section-3">
             <div class="container">
                 <div class="title text-right">
                     <h2>Testimonies</h2>
                 </div>
                 <div class="mx-auto gallery-slider">
                     <figure class="effect-julia item">
-                        <img loading="lazy" src="/img/clients/daruma-logo.png" alt="Daruma Software Client Logo">
+                        <img loading="lazy" src="/rimg/clients/daruma-logo.png" alt="Daruma Software Client Logo">
                         <figcaption>
                             <div>
                                 <p>Daruma Software growth. Great example</p>
                             </div>
-                            <a href="/clients/daruma-software">View more</a>
+                            <a href="/daruma-software">View more</a>
                         </figcaption>
                     </figure>
                 </div>
-        </section> */ ?>
-        <!-- FAQ Section: Inserted after Measures and before Footer -->
-        <style>
-        .custom-accordion { border-radius: 8px; border: 1px solid #e0e0e0; background: #fff; }
-        .custom-accordion-item + .custom-accordion-item { border-top: 1px solid #e0e0e0; }
-        .custom-accordion-header { margin: 0; }
-        .custom-accordion-button {
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            outline: none;
-            padding: 1rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .custom-accordion-button.active, .custom-accordion-button:focus { background: #f7f7f7; }
-        .custom-accordion-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1);
-            background: #fafbfc;
-            padding: 0 1rem;
-        }
-        .custom-accordion-panel.open {
-            padding: 1rem;
-            max-height: 500px;
-            transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
-        }
-        </style>
-        <section class="faq-section container py-5">
-            <h2 class="mb-4">Frequently Asked Questions</h2>
-            <div class="custom-accordion" id="faqAccordion">
-                <?php
-                foreach ($faqList as $i => $faq) {
-                    $headingId = 'faqHeading' . $i;
-                    $panelId = 'faqPanel' . $i;
-                ?>
-                <div class="custom-accordion-item">
-                    <h3 class="custom-accordion-header" id="<?php echo $headingId; ?>">
-                        <button class="custom-accordion-button" type="button" aria-expanded="false" aria-controls="<?php echo $panelId; ?>">
-                            <?php echo htmlspecialchars($faq[0]); ?>
-                        </button>
-                    </h3>
-                    <div id="<?php echo $panelId; ?>" class="custom-accordion-panel" role="region" aria-labelledby="<?php echo $headingId; ?>">
-                        <?php echo htmlspecialchars($faq[1]); ?>
-                    </div>
-                </div>
-                <?php } ?>
-            </div>
-            <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var acc = document.querySelectorAll('.custom-accordion-button');
-                acc.forEach(function(btn, idx) {
-                    btn.addEventListener('click', function() {
-                        var panel = btn.parentElement.nextElementSibling;
-                        var isOpen = panel.classList.contains('open');
-                        // Close all
-                        document.querySelectorAll('.custom-accordion-panel').forEach(function(p) {
-                            p.classList.remove('open');
-                            p.previousElementSibling.querySelector('.custom-accordion-button').classList.remove('active');
-                            p.previousElementSibling.querySelector('.custom-accordion-button').setAttribute('aria-expanded', 'false');
-                        });
-                        // Open clicked if not already open
-                        if (!isOpen) {
-                            panel.classList.add('open');
-                            btn.classList.add('active');
-                            btn.setAttribute('aria-expanded', 'true');
-                        }
-                    });
-                });
-            });
-            </script>
         </section>
-        <!-- End FAQ Section -->
     </main>
 </div>

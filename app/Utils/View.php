@@ -2,15 +2,21 @@
 
 namespace App\Utils;
 
+use App\Utils\EnvUtil;
+
 /**
  * Simple View Renderer - Lightweight template system without external dependencies
  */
 class View
 {
+    private static string $cachePath;
+    private static bool $cacheEnabled;
     private static string $viewsPath;
     private static string $layoutPath;
     private array $data = [];
+    private string $siteUrl;
     private array $sections = [];
+
 
     public function __construct()
     {
@@ -20,6 +26,9 @@ class View
 
         self::$viewsPath = ROOT_PATH . 'app/Views/';
         self::$layoutPath = self::$viewsPath . 'layout.php';
+        self::$cachePath = self::$viewsPath . 'cache/';
+        self::$cacheEnabled = EnvUtil::get('VIEW_CACHE_ENABLED', 'false') === 'true';
+        $this->siteUrl = EnvUtil::get('APP_URL', 'http://localhost');
     }
 
     /**
@@ -50,6 +59,17 @@ class View
             throw new \RuntimeException("View file not found: {$viewFile}");
         }
 
+        $this->data['siteUrl'] = $this->siteUrl;
+
+        $cacheKey = $this->getCacheKey($view, $layout, $this->data);
+        $cacheFile = self::$cachePath . $cacheKey . '.html';
+
+        if (self::$cacheEnabled) {
+            if (file_exists($cacheFile)) {
+                return file_get_contents($cacheFile);
+            }
+        }
+
         // Extract data to make variables available in view
         extract($this->data);
 
@@ -60,19 +80,50 @@ class View
 
         // If no layout specified, return content directly
         if ($layout === null || $layout === '') {
+            if (self::$cacheEnabled) {
+                $this->writeCacheFile($cacheFile, $content);
+            }
             return $content;
         }
 
         // Use specified layout or default
         $layoutFile = $layout ? self::$viewsPath . $layout . '.php' : self::$layoutPath;
         if (!file_exists($layoutFile)) {
+            if (self::$cacheEnabled) {
+                $this->writeCacheFile($cacheFile, $content);
+            }
             return $content; // Return content without layout if layout doesn't exist
         }
 
         // Render layout with content
         ob_start();
         include $layoutFile;
-        return ob_get_clean();
+        $finalContent = ob_get_clean();
+
+        if (self::$cacheEnabled) {
+            $this->writeCacheFile($cacheFile, $finalContent);
+        }
+        return $finalContent;
+    }
+
+    private function getCacheKey(string $view, ?string $layout, array $data): string
+    {
+        $dataHash = md5(json_encode($data));
+        $layoutPart = $layout ? $layout : 'nolayout';
+        return $view . '_' . $layoutPart . '_' . $dataHash;
+    }
+
+    private function writeCacheFile(string $cacheFile, string $content): void
+    {
+        $dir = dirname($cacheFile);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+        // Debug: print when creating cache
+        error_log("[ViewCache] Creating cache file: $cacheFile");
+        file_put_contents($cacheFile, $content);
+        // Debug: print after cache created
+        error_log("[ViewCache] Cache file created: $cacheFile");
     }
 
     /**

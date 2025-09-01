@@ -8,7 +8,7 @@
     <title><?php echo $title ?? 'SEO Virtual Assistant'; ?></title>
     <meta name="description" content="<?php echo $description ?? 'Optimize your website for search engines with our powerful team.'; ?>" />
 
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
 
     <?php if (isset($stylesheets) && is_array($stylesheets)): ?>
         <?php foreach ($stylesheets as $stylesheet): ?>
