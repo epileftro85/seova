@@ -892,7 +892,8 @@ textarea.form-control {
 /*---------------*/
 
 figure.effect-julia {
-	background: #2f3238;
+  background: #fff;
+  padding: 70px;
 }
 
 figure.effect-julia img {

@@ -1,40 +1,3 @@
-/* jQuery(document).ready(function() {
-  "use strict";
-    $('.gallery-slider').slick({
-        slidesToShow: 5,
-        slidesToScroll: 3,
-        autoplay: false,
-        dots: true,
-        autoplaySpeed: 2000,
-        arrows: false,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 767,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3
-            }
-          },
-          {
-            breakpoint: 575,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
-            }
-          }
-        ]
-    });
-}); */
-
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.navbar-button').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
@@ -80,3 +43,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+/*! Bootstrap 5 Accordion Only - Minimal for FAQ toggle */
+// This is a minimal implementation for Bootstrap 5 accordion toggle behavior.
+// For full features, use the official Bootstrap JS.
+(function(){
+  document.addEventListener('DOMContentLoaded', function() {
+    var accordions = document.querySelectorAll('.accordion');
+    accordions.forEach(function(accordion) {
+      accordion.addEventListener('click', function(e) {
+        if (e.target.classList.contains('accordion-button')) {
+          var button = e.target;
+          var collapse = document.querySelector(button.getAttribute('data-bs-target'));
+          var isOpen = collapse.classList.contains('show');
+          // Close all
+          accordion.querySelectorAll('.accordion-collapse').forEach(function(c) {
+            c.classList.remove('show');
+            c.previousElementSibling.querySelector('.accordion-button').classList.add('collapsed');
+            c.previousElementSibling.querySelector('.accordion-button').setAttribute('aria-expanded', 'false');
+          });
+          // Open clicked
+          if (!isOpen) {
+            collapse.classList.add('show');
+            button.classList.remove('collapsed');
+            button.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+  });
+})();
