@@ -56,22 +56,13 @@
 
     @yield('additional-sections')
 
-    <!-- CTA Footer (optional for marketing pages) -->
-    @if(isset($showCTA) && $showCTA)
-        <section class="bg-white text-center py-12" aria-labelledby="cta-heading">
-            <h2 id="cta-heading" class="text-2xl font-bold mb-4">Ready to grow smarter?</h2>
-            <p class="text-gray-600 mb-6">Let's talk. Get a free quote and discover how Seova can help your business thrive.</p>
-            <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" aria-label="Get a free SEO quote from Seova">Get a Free Quote</a>
-        </section>
-    @endif
-
     <!-- Footer -->
     <footer class="bg-gray-800 text-white text-center py-6" role="contentinfo">
         <p>&copy; {{ date('Y') }} Seova.pro — Data-Driven SEO Virtual Assistant. All rights reserved.</p>
     </footer>
 
     <!-- JavaScript -->
-    @vite('resources/js/app.js')
+    <script src="{{ asset('build/assets/app-tf9U5vyf.js') }}" defer></script>
     @stack('scripts')
 </body>
 </html>
