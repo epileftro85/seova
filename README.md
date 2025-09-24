@@ -1,214 +1,61 @@
-# SlimFrame
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-Lightweight PHP project scaffold with a minimal router, controllers, and a simple SQL-based migration runner. this is mean to be a simple yet powerfull starting point.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## What this is not
+## About Laravel
 
-- This is not a full framework. It is not intended to be a second Laravel, Symfony, or similar — there are no heavy abstractions, service containers, or elaborate ORMs here.
-- This is not meant to be a composer-heavy, dependency-packed app. The goal is minimal external dependencies so the project stays fast and easy to inspect.
-- This is not a production-ready migration platform with rollbacks, complex SQL parsing, or multi-environment orchestration out of the box. Use a dedicated migration tool for advanced workflows.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-This project is intentionally simple: a fast PHP starting point you can understand, modify, and deploy without a large framework or many runtime dependencies.
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-## Quick overview
-- Docker Compose for local development: `docker compose.yml` (services: `mysql`, `php`, `nginx`)
-- Migrations directory: `migrations/`
-- Migration runner: `migrate.php` (CLI)
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Requirements
-- Docker & docker compose (recommended for local development)
-- PHP CLI (optional if you run migrator on host)
-- Composer dependencies are expected under `vendor/` in this repo (already present).
+## Learning Laravel
 
-## Getting started (recommended: Docker)
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-1. Start containers:
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-```
-docker compose up -d --build
-```
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-2. Run the migration runner from the `php` container (recommended because the service name `mysql` resolves on the Docker network):
+## Laravel Sponsors
 
-```
-docker compose run --rm php php /var/www/html/migrate.php
-```
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-3. Verify tables exist (run in the mysql container):
+### Premium Partners
 
-```
-docker compose exec mysql mysql -u seoanchor -pseoanchor -e "USE seoanchor; SHOW TABLES;"
-```
+- **[Vehikl](https://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Redberry](https://redberry.international/laravel-development)**
+- **[Active Logic](https://activelogic.com)**
 
-4. Install composer and generate classes autoloading
-```
-composer install && composer dump-autoload -o
-```
+## Contributing
 
-5. Open the app in a browser at `http://localhost` (nginx is mapped to port 80 in `docker compose.yml`).
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Migrations
+## Code of Conduct
 
-- Location: `migrations/`
-- Files: plain `.sql` files. Name them with a leading sequence (e.g. `001_create_users.sql`, `002_create_user_role_table.sql`) so they run in order.
-- The migrator (`migrate.php`) behavior:
-  - Creates a `migrations` table to track applied migration filenames.
-  - Skips files already recorded in `migrations`.
-  - Skips migrations containing `DROP TABLE` (safety: will not automatically drop tables).
-  - Attempts a simple heuristic to add `IF NOT EXISTS` to `CREATE TABLE` statements that lack it (a convenience; review complex SQL manually).
-  - Runs each migration inside a transaction and records it after successful execution.
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-Safety notes:
-- The migrator is intentionally conservative. For complex schema changes (ALTER, stored procedures, multiple statements with custom delimiters) review and run manually.
-- Always back up production data and use a proper migration system (Phinx, Laravel migrations, Doctrine Migrations) for production workflows.
+## Security Vulnerabilities
 
-## Database configuration
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-Database configuration is centralized under `Config/Database/Connection.php` and `Config/Database/Database.php`.
+## License
 
-- `Connection::db()` returns an array of defaults read from environment variables. Defaults in the file:
-  - DB_DRIVER: `mysql`
-  - DB_HOST: `mysql` (note: Docker service hostname; on the host use `127.0.0.1`)
-  - DB_PORT: `3306`
-  - DB_NAME, DB_USER, DB_PASSWORD: `seoanchor` by default
-
-- `Database::pdo()` builds a PDO connection for `mysql`, `pgsql`, or `sqlite` using the config and sets safe PDO options (exceptions, default fetch mode, no emulated prepares). It also exposes helper methods: `begin()`, `commit()`, `rollBack()`, `driver()`, and `quoteIdent()`.
-
-If you need to override settings for local development, export environment variables or set them in your Docker `environment` stanza (already done for the `php` service in `docker compose.yml`).
-
-## How to add a migration
-
-1. Create a new file in `migrations/` with a prefixed sequence number, e.g. `003_add_profiles.sql`.
-2. Prefer `CREATE TABLE IF NOT EXISTS` and avoid `DROP TABLE` in automated migrations.
-3. Run the migrator (container recommended):
-
-## Router and routes
-
-- `Routes/Router.php` contains a small routing layer used by the application.
-- Route definitions live in `Routes/WebRoutes.php` and are initialized from `Routes/init.php`.
-- Controllers are in `Controllers/` and generally return rendered views from `views/`.
-
-## View System
-
-The view system has been enhanced with a lightweight template engine that provides better organization, security, and maintainability while keeping the framework simple.
-
-### Key Features
-- **Template Engine**: Custom lightweight template system with layout support
-- **Security**: Automatic HTML escaping and XSS protection
-- **Helper Functions**: Built-in utilities for common tasks (URLs, assets, formatting)
-- **Layout System**: Reusable layouts with sections and inheritance
-- **Flash Messages**: Professional component-based messaging system
-
-### Usage
-```php
-// In your controller
-use App\Utils\View;
-
-class ExampleController extends Controller
-{
-    public function index()
-    {
-        View::make()
-            ->with(['title' => 'My Page', 'users' => $users])
-            ->display('users/index', 'layout');
-    }
-}
-```
-
-For detailed documentation including all available features, helper functions, and examples, see [VIEW_SYSTEM.md](VIEW_SYSTEM.md).
-
-## Request Validation
-
-The framework includes a robust request validation system that provides secure input validation and sanitization.
-
-### Key Features
-- **Base Request Class**: `App\Requests\Request` provides the foundation for all validations
-- **Rule-Based Validation**: Define validation rules for each field
-- **Automatic Sanitization**: Input cleaning and type conversion
-- **Error Handling**: Comprehensive error messages and validation feedback
-- **Security**: Protection against common web vulnerabilities
-
-### Available Request Classes
-- **RegisterRequest**: Handles user registration validation
-- **LoginRequest**: Manages login form validation
-- **Custom Requests**: Extend the base Request class for your specific needs
-
-### Usage Example
-```php
-// In your controller
-use App\Requests\RegisterRequest;
-
-class AuthController extends Controller
-{
-    public function register()
-    {
-        $request = new RegisterRequest();
-        
-        if (!$request->validate($_POST)) {
-            // Handle validation errors
-            $errors = $request->getErrors();
-            return View::make()
-                ->with(['errors' => $errors])
-                ->display('auth/register', 'layout');
-        }
-        
-        // Process valid data
-        $data = $request->getValidatedData();
-        // ... registration logic
-    }
-}
-```
-
-### Validation Rules
-- `required`: Field must be present and not empty
-- `email`: Must be a valid email format
-- `min:X`: Minimum length for strings, minimum value for numbers
-- `max:X`: Maximum length for strings, maximum value for numbers
-- `string`: Must be a valid string
-- `numeric`: Must be a valid number
-- `confirmed`: Must match a confirmation field (e.g., password_confirmation)
-
-## Middleware
-
-- Middleware lives under `Middlewares/` and the base helper is `Middlewares/Middleware.php`.
-- There are two types of middleware:
-  - Global middleware (applied to every route) — registerable via `Middleware::use_middleware()`.
-  - Named middleware (registered once and referenced by name) — registerable via `Middleware::register_middleware($name, $callable)`.
-
-- `AuthMiddleware` shows the pattern: it registers a named middleware `auth` that redirects unauthenticated users to `/`.
-
-- In `Routes/init.php` the app calls `AuthMiddleware::register()` to ensure the named middleware is available when routes are defined.
-
-- Attaching middleware to routes:
-  - When declaring routes you can pass an array of middleware as the third parameter. The array entries may be:
-    - A string referring to a named middleware (e.g. `'auth'`).
-    - A callable middleware (e.g. `function(callable $next){ ... }`).
-
-- Example: protect the dashboard route with the named `auth` middleware:
-
-```php
-get('/dashboard', 'DashController@index', ['auth']);
-```
-
-- Execution order and behavior:
-  - The router merges `Middleware::$GLOBAL_MIDDLEWARE` with the route-specific middleware array.
-  - Named middleware are resolved to their registered callables before execution.
-  - Middleware are executed in order (global first, then route-specific). Each middleware receives a single argument — a `$next` callable — and must call `$next()` to continue the pipeline. If a middleware does not call `$next()` (for example, it redirects), the pipeline stops and the route handler is not executed.
-
-- Error handling:
-  - If a named middleware is referenced but not registered, the router returns HTTP 500 with `Unknown middleware: <name>`.
-  - If an invalid middleware value is supplied, the router returns HTTP 500 with `Invalid middleware`.
-
-## Troubleshooting common errors
-
-- PDOException: SQLSTATE[HY000] [2002] No such file or directory
-  - Cause: PHP tried to connect to a DB host that isn't resolvable from the environment (often `mysql` on host). Solution: run the migrator inside the php container (recommended) or set `DB_HOST=127.0.0.1` and ensure MySQL port is published.
-
-- Base table or view not found
-  - Cause: the web app is connected to a database that lacks the expected table (for example, `users` was not created). Solution: run the migrator in the environment the web app uses (see commands above) and verify `SHOW TABLES;` in the target DB.
-
-```
-docker compose run --rm php php /var/www/html/migrate.php
-```
----
-Generated on: 2025-08-28
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
