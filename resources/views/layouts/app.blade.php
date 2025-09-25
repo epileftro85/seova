@@ -67,6 +67,9 @@
 
     @yield('additional-sections')
 
+    {{-- Quote Modal Partial (hidden until triggered) --}}
+    @include('partials.quote-modal')
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-white text-center py-6" role="contentinfo">
         <p>&copy; {{ date('Y') }} Seova.pro — Data-Driven SEO Virtual Assistant. All rights reserved.</p>
