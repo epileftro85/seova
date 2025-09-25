@@ -11,6 +11,8 @@ class StructuredDataService
     {
         $homeUrl = url('/');
         $orgId = $homeUrl . '#organization';
+        $websiteId = $homeUrl . '#website';
+        $webpageId = $homeUrl . '#webpage';
 
         return [
             '@context' => 'https://schema.org',
@@ -26,15 +28,38 @@ class StructuredDataService
                     'areaServed' => 'Worldwide',
                 ],
 
-                // Service offered by the agency
+                // WebSite entity
+                [
+                    '@type' => 'WebSite',
+                    '@id' => $websiteId,
+                    'url' => $homeUrl,
+                    'name' => 'Seova',
+                    'publisher' => [
+                        '@id' => $orgId,
+                    ],
+                    'inLanguage' => 'en',
+                ],
+
+                // WebPage entity (Home)
+                [
+                    '@type' => 'WebPage',
+                    '@id' => $webpageId,
+                    'url' => $homeUrl,
+                    'name' => 'Seova SEO Virtual Assistant for Small Business',
+                    'isPartOf' => [ '@id' => $websiteId ],
+                    'about' => [ '@id' => $orgId ],
+                    'primaryImageOfPage' => [
+                        '@type' => 'ImageObject',
+                        'url' => asset('img/seova-og-image.jpg'),
+                    ],
+                ],
+
+                // Service offered by the agency (generic offer without explicit price)
                 [
                     '@type' => 'Service',
                     'name' => 'SEO Virtual Assistant Services',
                     'description' => 'Technical SEO audits, keyword strategy, ROI-focused analysis, and automated reporting tailored for SMBs.',
-                    'provider' => [
-                        '@type' => 'Organization',
-                        '@id' => $orgId,
-                    ],
+                    'provider' => [ '@id' => $orgId ],
                     'audience' => [
                         '@type' => 'BusinessAudience',
                         'name' => 'Small and Medium Businesses',
@@ -44,12 +69,8 @@ class StructuredDataService
                         '@type' => 'Offer',
                         'url' => $homeUrl . '#contact',
                         'priceCurrency' => 'USD',
-                        // Keep price open; contact for pricing via specification (string kept intentionally)
-                        'priceSpecification' => [
-                            '@type' => 'PriceSpecification',
-                            'price' => 'contact for pricing',
-                        ],
                         'availability' => 'https://schema.org/InStock',
+                        'description' => 'Custom pricing based on scope; request a free quote.',
                     ],
                 ],
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Seova – SEO Virtual Assistant | Smart SEO Solutions for Small Business')
+@section('title', 'Seova SEO Virtual Assistant for Small Business')
 @section('description', 'Seova provides smart SEO solutions for small businesses. Get technical site audits, keyword strategy, ROI-focused campaigns, and automated reporting dashboards.')
 @section('keywords', 'SEO virtual assistant, technical SEO audit, keyword strategy, ROI campaign analysis, automated SEO reporting, small business SEO')
 
