@@ -8,6 +8,21 @@
     --color-seova-dark: oklch(0.22 0.18 48.44);
 }
 
+:root {
+    /* Brand palette exposed as CSS variables for accessibility tooling & contrast adjustments */
+    --seova-orange: oklch(0.62 0.18 48.44);
+    --seova-green: oklch(0.48 0.19 147.37);
+    --seova-dark: oklch(0.22 0.18 48.44);
+    --seova-bg: #f9fafb;
+    --seova-text: #1f2937; /* gray-800 */
+}
+
+/* Utility helper for debugging contrast (apply to body temporarily) */
+.debug-contrast-outline *:focus {
+    outline: 2px solid var(--seova-orange) !important;
+    outline-offset: 2px;
+}
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';

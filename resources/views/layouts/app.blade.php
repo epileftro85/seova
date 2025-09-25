@@ -9,7 +9,8 @@
     <meta name="description" content="@yield('description', 'Seova is your SEO Virtual Assistant. Get technical SEO audits, keyword strategy, and data-driven insights to grow your business organically.')">
     <meta name="keywords" content="@yield('keywords', 'SEO, search engine optimization, virtual assistant, keyword research, technical SEO, site audit, SEO tools')">
     <meta name="author" content="Seova SEO Assistant">
-    <meta name="robots" content="@yield('robots', 'index, follow')">
+    <meta name="robots" content="@yield('robots', 'index,follow,max-image-preview:large')">
+    <meta name="theme-color" content="#0f172a" />
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="@yield('og_title', 'Seova – SEO Virtual Assistant')">
@@ -17,6 +18,8 @@
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="@yield('og_image', asset('img/seova-og-image.jpg'))">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Seova">
     
     <!-- Twitter Card Meta Tags -->
@@ -24,9 +27,10 @@
     <meta name="twitter:title" content="@yield('twitter_title', 'Seova – SEO Virtual Assistant')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Smart SEO solutions for small businesses. Get technical expertise and data analysis.')">
     <meta name="twitter:image" content="@yield('twitter_image', asset('img/seova-twitter-card.jpg'))">
+    <meta name="twitter:image:alt" content="Seova SEO Virtual Assistant">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="canonical" href="{{ request()->is('/') ? url('/') : url()->current() }}">
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
@@ -47,6 +51,13 @@
 
     @include('partials.navbar')
 
+    {{-- Breadcrumbs (provided by middleware) --}}
+    @isset($breadcrumbsHidden)
+        @if(!$breadcrumbsHidden)
+            <x-breadcrumbs :items="$breadcrumbs" />
+        @endif
+    @endisset
+
     @yield('hero')
 
     <!-- Main Content -->
@@ -62,7 +73,7 @@
     </footer>
 
     <!-- JavaScript -->
-    <script src="{{ asset('build/assets/app-tf9U5vyf.js') }}" defer></script>
+    @vite('resources/js/app.js')
     @stack('scripts')
 </body>
 </html>

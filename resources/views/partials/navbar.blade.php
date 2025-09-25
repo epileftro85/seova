@@ -4,7 +4,7 @@
         <div class="flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <a href="{{ url('/') }}" class="flex items-center gap-2" aria-label="Seova SEO Virtual Assistant - Go to homepage">
-                    <img src="{{ asset('img/seova-logo.svg') }}" alt="Seova SEO Virtual Assistant Logo" class="h-12 md:h-14" />
+                    <img src="{{ asset('img/seova-logo.svg') }}" alt="Seova SEO Virtual Assistant Logo" class="h-12 md:h-14" width="160" height="56" loading="eager" decoding="async" fetchpriority="high" />
                 </a>
             </div>
             
@@ -17,11 +17,11 @@
                         Tools 
                         <span aria-hidden="true">▼</span>
                     </button>
-                    <div id="toolsMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 w-48 z-10" role="menu" aria-labelledby="toolsToggle">
-                        <a href="#keyword-explorer" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Keyword Explorer</a>
-                        <a href="#meta-analyzer" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Meta Tag Analyzer</a>
-                        <a href="#site-crawler" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Site Crawler</a>
-                        <a href="#serp-preview" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">SERP Preview</a>
+                    <div id="toolsMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 w-56 z-10" role="menu" aria-labelledby="toolsToggle">
+                        <a href="{{ route('tools.keyword') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Keyword Explorer</a>
+                        <a href="{{ route('tools.meta') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Meta Tag Analyzer</a>
+                        <a href="{{ route('tools.crawler') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Site Crawler</a>
+                        <a href="{{ route('tools.serp') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">SERP Preview</a>
                     </div>
                 </div>
             </nav>
@@ -48,10 +48,10 @@
                         <span aria-hidden="true">▼</span>
                     </button>
                     <div id="mobileToolsMenu" class="hidden ml-4 mt-2 space-y-2" role="menu" aria-labelledby="mobileToolsToggle">
-                        <a href="#keyword-explorer" class="block text-sm text-gray-600 hover:text-seova-orange py-1" role="menuitem">Keyword Explorer</a>
-                        <a href="#meta-analyzer" class="block text-sm text-gray-600 hover:text-seova-orange py-1" role="menuitem">Meta Tag Analyzer</a>
-                        <a href="#site-crawler" class="block text-sm text-gray-600 hover:text-seova-orange py-1" role="menuitem">Site Crawler</a>
-                        <a href="#serp-preview" class="block text-sm text-gray-600 hover:text-seova-orange py-1" role="menuitem">SERP Preview</a>
+                        <a href="{{ route('tools.keyword') }}" class="block text-sm text-gray-600 hover:text-seova-orange py-1" role="menuitem">Keyword Explorer</a>
+                        <a href="{{ route('tools.meta') }}" class="block text-sm text-gray-600 hover:text-seova-orange py-1" role="menuitem">Meta Tag Analyzer</a>
+                        <a href="{{ route('tools.crawler') }}" class="block text-sm text-gray-600 hover:text-seova-orange py-1" role="menuitem">Site Crawler</a>
+                        <a href="{{ route('tools.serp') }}" class="block text-sm text-gray-600 hover:text-seova-orange py-1" role="menuitem">SERP Preview</a>
                     </div>
                 </div>
                 <a href="#contact" class="text-gray-700 hover:text-seova-orange font-medium py-2">Contact</a>
