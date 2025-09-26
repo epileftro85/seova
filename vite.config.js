@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/js/tools/site-crawler.js',
                 'resources/js/tools/serp-preview.js',
                 'resources/js/tools/word-counter.js',
+                'resources/js/tools/meta-tag-generator.js',
             ],
             refresh: true,
         }),
