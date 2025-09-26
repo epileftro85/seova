@@ -18,10 +18,9 @@
                         <span aria-hidden="true">▼</span>
                     </button>
                     <div id="toolsMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 w-56 z-10" role="menu" aria-labelledby="toolsToggle">
-                        <a href="{{ route('tools.keyword') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_keyword">Keyword Explorer</a>
-                        <a href="{{ route('tools.meta') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_meta">Meta Tag Analyzer</a>
-                        <a href="{{ route('tools.crawler') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_crawler">Site Crawler</a>
+                        {{-- <a href="{{ route('tools.keyword') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_keyword">Keyword Explorer</a> --}}
                         <a href="{{ route('tools.serp') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_serp">SERP Preview</a>
+                        <a href="{{ route('tools.word-counter') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_word_counter">Word Counter</a>
                     </div>
                 </div>
             </nav>
@@ -48,10 +47,9 @@
                         <span aria-hidden="true">▼</span>
                     </button>
                     <div id="mobileToolsMenu" class="hidden ml-4 mt-2 space-y-2" role="menu" aria-labelledby="mobileToolsToggle">
-                        <a href="{{ route('tools.keyword') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_keyword">Keyword Explorer</a>
-                        <a href="{{ route('tools.meta') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_meta">Meta Tag Analyzer</a>
-                        <a href="{{ route('tools.crawler') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_crawler">Site Crawler</a>
+                        {{-- <a href="{{ route('tools.keyword') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_keyword">Keyword Explorer</a> --}}
                         <a href="{{ route('tools.serp') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_serp">SERP Preview</a>
+                        <a href="{{ route('tools.word-counter') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_word_counter">Word Counter</a>
                     </div>
                 </div>
                 <a href="#contact" class="text-gray-700 hover:text-seova-orange font-medium py-2" data-analytics-event="navm_contact">Contact</a>

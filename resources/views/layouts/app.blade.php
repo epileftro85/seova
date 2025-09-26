@@ -29,6 +29,11 @@
     <meta name="twitter:image" content="@yield('twitter_image', asset('img/seova-twitter-card.jpg'))">
     <meta name="twitter:image:alt" content="Seova SEO Virtual Assistant">
     
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+        @yield('json-ld', '{}')
+    </script>
+    
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ request()->is('/') ? url('/') : url()->current() }}">
 

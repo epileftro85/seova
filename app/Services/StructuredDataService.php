@@ -5,7 +5,7 @@ namespace App\Services;
 class StructuredDataService
 {
     /**
-     * Structured data for the Home page
+     * Get the site-wide default structured data (organization + website)
      */
     public function homeStructuredData(): array
     {
@@ -48,127 +48,86 @@ class StructuredDataService
                     'name' => 'Seova SEO Virtual Assistant for Small Business',
                     'isPartOf' => [ '@id' => $websiteId ],
                     'about' => [ '@id' => $orgId ],
-                    'primaryImageOfPage' => [
-                        '@type' => 'ImageObject',
-                        'url' => asset('img/seova-og-image.jpg'),
-                    ],
-                ],
+                    'inLanguage' => 'en',
+                ]
+            ]
+        ];
+    }
 
-                // Service offered by the agency (generic offer without explicit price)
+    /**
+     * Structured data for the Word Counter tool page
+     */
+    public function wordCounterStructuredData(): array
+    {
+        $toolUrl = route('tools.word-counter');
+        $websiteId = url('/') . '#website';
+        $orgId = url('/') . '#organization';
+
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => [
                 [
-                    '@type' => 'Service',
-                    'name' => 'SEO Virtual Assistant Services',
-                    'description' => 'Technical SEO audits, keyword strategy, ROI-focused analysis, and automated reporting tailored for SMBs.',
-                    'provider' => [ '@id' => $orgId ],
-                    'audience' => [
-                        '@type' => 'BusinessAudience',
-                        'name' => 'Small and Medium Businesses',
-                        'audienceType' => 'SMB',
-                    ],
+                    '@type' => 'WebPage',
+                    '@id' => $toolUrl . '#webpage',
+                    'url' => $toolUrl,
+                    'name' => 'Word Counter & Text Analyzer | Seova Free SEO Tool',
+                    'description' => 'Free tool to count words, characters, sentences and calculate reading time. Perfect for content optimization and SEO writing.',
+                    'isPartOf' => ['@id' => $websiteId],
+                    'publisher' => ['@id' => $orgId],
+                    'inLanguage' => 'en'
+                ],
+                [
+                    '@type' => 'SoftwareApplication',
+                    '@id' => $toolUrl . '#software',
+                    'name' => 'SEO Word Counter & Text Analyzer',
+                    'description' => 'Free online tool to count words, characters, sentences, and analyze text structure for SEO content optimization.',
+                    'applicationCategory' => 'SEO Tool',
+                    'operatingSystem' => 'Any',
                     'offers' => [
                         '@type' => 'Offer',
-                        'url' => $homeUrl . '#contact',
-                        'priceCurrency' => 'USD',
-                        'availability' => 'https://schema.org/InStock',
-                        'description' => 'Custom pricing based on scope; request a free quote.',
-                    ],
+                        'price' => '0',
+                        'priceCurrency' => 'USD'
+                    ]
                 ],
-
-                // FAQ schema
                 [
                     '@type' => 'FAQPage',
+                    '@id' => $toolUrl . '#faq',
                     'mainEntity' => [
                         [
                             '@type' => 'Question',
-                            'name' => 'What is Seova?',
+                            'name' => 'What is the ideal blog post length for SEO?',
                             'acceptedAnswer' => [
                                 '@type' => 'Answer',
-                                'text' => 'Seova is an SEO Virtual Assistant agency that combines technical SEO and data analysis to help small and medium businesses grow organically.',
-                            ],
+                                'text' => 'The ideal blog post length for SEO typically ranges between 1,500 and 2,500 words. This length allows you to cover topics comprehensively while maintaining reader engagement. Longer content often attracts more backlinks and social shares, though quality always trumps quantity.'
+                            ]
                         ],
                         [
                             '@type' => 'Question',
-                            'name' => 'Who is Seova for?',
+                            'name' => 'How long should a meta description be?',
                             'acceptedAnswer' => [
                                 '@type' => 'Answer',
-                                'text' => 'We primarily support small and medium businesses looking for practical, ROI-focused SEO without the fluff.',
-                            ],
+                                'text' => "Meta descriptions should be between 150-160 characters to prevent truncation in search results. While they don't directly influence rankings, well-crafted meta descriptions can improve click-through rates."
+                            ]
                         ],
                         [
                             '@type' => 'Question',
-                            'name' => 'What services do you offer?',
+                            'name' => 'What is the optimal paragraph length for readability?',
                             'acceptedAnswer' => [
                                 '@type' => 'Answer',
-                                'text' => 'We offer site health audits, keyword strategy implementation, ROI-focused campaign analysis, and automated reporting dashboards.',
-                            ],
+                                'text' => 'For optimal readability, paragraphs should contain 2-4 sentences. This structure improves content scanability and maintains reader engagement. Include subheadings every 300-350 words to further break up the content.'
+                            ]
                         ],
                         [
                             '@type' => 'Question',
-                            'name' => 'How does pricing work?',
+                            'name' => 'How is reading time calculated?',
                             'acceptedAnswer' => [
                                 '@type' => 'Answer',
-                                'text' => 'Services are offered in USD with tailored quotes based on scope. Get a free quote to receive a personalized plan and pricing.',
-                            ],
-                        ],
-                        [
-                            '@type' => 'Question',
-                            'name' => 'Do I need technical skills to use Seova?',
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => 'No. We provide simple guidance and do the heavy lifting. Our tools and processes are designed to be easy to use.',
-                            ],
-                        ],
-                        [
-                            '@type' => 'Question',
-                            'name' => 'What happens after I request a quote?',
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => 'We review your site, prepare a tailored growth plan, and recommend services aligned with your goals and budget.',
-                            ],
-                        ],
-                        [
-                            '@type' => 'Question',
-                            'name' => "How can I grow my site's visitors organically?",
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => 'Focus on technical health, intent-driven keyword targeting, high-quality content, and consistent internal linking. We prioritize fixes and strategies that compound growth over time.',
-                            ],
-                        ],
-                        [
-                            '@type' => 'Question',
-                            'name' => 'How long does SEO take to show results?',
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => 'Most sites begin to see measurable improvements within 6–12 weeks, depending on competition and site health. We set expectations clearly and track leading indicators from week one.',
-                            ],
-                        ],
-                        [
-                            '@type' => 'Question',
-                            'name' => 'Do you help with local SEO and Google Business Profile?',
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => 'Yes. We optimize your Google Business Profile, local citations, and on-page local signals to improve visibility for searches in your service area.',
-                            ],
-                        ],
-                        [
-                            '@type' => 'Question',
-                            'name' => 'Can you work with my CMS (WordPress, Shopify, custom)?',
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => 'Absolutely. We regularly work with WordPress, Shopify, Webflow, and custom stacks. We provide implementation-ready recommendations or can implement where access allows.',
-                            ],
-                        ],
-                        [
-                            '@type' => 'Question',
-                            'name' => 'What metrics do you track to measure SEO success?',
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => 'We track organic traffic, qualified sessions, rankings for priority keywords, conversions, and ROI signals. Technical KPIs include Core Web Vitals, crawlability, indexation, and error rates.',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
+                                'text' => 'Reading time is calculated based on an average reading speed of 200 words per minute for web content. This is a standard benchmark that accounts for varying comprehension levels and content complexity.'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
         ];
     }
 }
