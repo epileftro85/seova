@@ -34,6 +34,11 @@ class ToolsController extends Controller
         return view('tools.serp-preview');
     }
 
+    public function wordCounter(): View
+    {
+        return view('tools.word-counter');
+    }
+
     /**
      * Lightweight metadata fetcher for SERP preview tool.
      * Accepts ?url=https://example.com and returns JSON: { title, description }

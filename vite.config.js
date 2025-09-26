@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/tools/meta-tag-analyzer.js',
                 'resources/js/tools/site-crawler.js',
                 'resources/js/tools/serp-preview.js',
+                'resources/js/tools/word-counter.js',
             ],
             refresh: true,
         }),
