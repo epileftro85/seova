@@ -17,4 +17,5 @@ Route::prefix('tools')->name('tools.')->group(function () {
 	Route::get('/serp-preview', [ToolsController::class, 'serpPreview'])->name('serp');
 	Route::get('/serp-preview/fetch', [ToolsController::class, 'serpPreviewFetch'])->name('serp.fetch');
 	Route::get('/word-counter', [ToolsController::class, 'wordCounter'])->name('word-counter');
+	Route::get('/meta-tag-generator', [ToolsController::class, 'metaTagGenerator'])->name('meta-tag-generator');
 });

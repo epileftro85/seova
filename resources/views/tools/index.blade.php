@@ -36,6 +36,10 @@
             <h2 class="text-xl font-semibold mb-2"><a href="{{ route('tools.word-counter') }}" class="text-seova-orange hover:underline">Word Counter</a></h2>
             <p class="text-sm text-gray-600">Count words, characters, and analyze text structure.</p>
         </li>
+        <li class="p-6 rounded-lg bg-white shadow hover:shadow-md transition">
+            <h2 class="text-xl font-semibold mb-2"><a href="{{ route('tools.meta-tag-generator') }}" class="text-seova-orange hover:underline">Meta Tag Generator</a></h2>
+            <p class="text-sm text-gray-600">Create and preview SEO meta tags for your pages.</p>
+        </li>
     </ul>
 </section>
 @endsection

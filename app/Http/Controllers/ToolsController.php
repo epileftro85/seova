@@ -39,6 +39,11 @@ class ToolsController extends Controller
         return view('tools.word-counter');
     }
 
+    public function metaTagGenerator(): View
+    {
+        return view('tools.meta-tag-generator');
+    }
+
     /**
      * Lightweight metadata fetcher for SERP preview tool.
      * Accepts ?url=https://example.com and returns JSON: { title, description }

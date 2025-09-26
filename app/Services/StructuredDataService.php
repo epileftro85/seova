@@ -130,4 +130,81 @@ class StructuredDataService
             ]
         ];
     }
+
+    /**
+     * Structured data for the Meta Tag Generator tool page
+     */
+    public function metaTagGeneratorStructuredData(): array
+    {
+        $toolUrl = route('tools.meta-tag-generator');
+        $websiteId = url('/') . '#website';
+        $orgId = url('/') . '#organization';
+
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'WebPage',
+                    '@id' => $toolUrl . '#webpage',
+                    'url' => $toolUrl,
+                    'name' => 'Meta Tag Generator | Seova Free SEO Tool',
+                    'description' => 'Generate optimized meta tags for your web pages. Create SEO-friendly title tags, descriptions, and social media meta tags.',
+                    'isPartOf' => ['@id' => $websiteId],
+                    'publisher' => ['@id' => $orgId],
+                    'inLanguage' => 'en'
+                ],
+                [
+                    '@type' => 'SoftwareApplication',
+                    '@id' => $toolUrl . '#software',
+                    'name' => 'SEO Meta Tag Generator',
+                    'description' => 'Free online tool to generate and preview meta tags for better SEO and social media sharing.',
+                    'applicationCategory' => 'SEO Tool',
+                    'operatingSystem' => 'Any',
+                    'offers' => [
+                        '@type' => 'Offer',
+                        'price' => '0',
+                        'priceCurrency' => 'USD'
+                    ]
+                ],
+                [
+                    '@type' => 'FAQPage',
+                    '@id' => $toolUrl . '#faq',
+                    'mainEntity' => [
+                        [
+                            '@type' => 'Question',
+                            'name' => 'What meta tags are most important for SEO?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'The most important meta tags for SEO are the title tag and meta description. The title tag should be 50-60 characters and include your main keyword, while the meta description should be 150-160 characters and provide a compelling summary of your page content.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'What are Open Graph meta tags used for?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'Open Graph (OG) meta tags are used to control how your content appears when shared on social media platforms like Facebook and LinkedIn. They allow you to specify the title, description, and image that should be displayed when your page is shared.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'Why are Twitter Card meta tags important?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'Twitter Card meta tags help your content stand out when shared on Twitter by controlling how your tweets appear with rich media. They allow you to specify a custom title, description, and image specifically for Twitter sharing.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'What should I put in the robots meta tag?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'The robots meta tag controls how search engines crawl and index your page. Common values include "index,follow" (default), "noindex,follow" (prevent indexing but follow links), and "noindex,nofollow" (prevent indexing and following links).'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+    }
 }
