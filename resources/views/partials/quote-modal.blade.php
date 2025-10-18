@@ -1,6 +1,3 @@
-@php
-    // Reuse the existing quote form partial inside an accessible modal dialog
-@endphp
 <div id="quoteModalWrapper"
      class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden"
      aria-labelledby="quote-modal-title" aria-describedby="quote-modal-desc" role="dialog" aria-modal="true">

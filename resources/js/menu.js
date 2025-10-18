@@ -1,6 +1,12 @@
+import { fireAnalytics } from './analytics';
+
+let isInitialized = false;
+
 // menu configuration
 // Wait for DOM to be ready
-document.addEventListener('DOMContentLoaded', () => {
+function initMenu() {
+    if (isInitialized) return;
+    isInitialized = true;
     // Utilities
     const qs = (sel, root = document) => root.querySelector(sel);
     const setExpanded = (el, expanded) => {
@@ -54,10 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleMenu(mobileMenu, mobileMenuToggle);
         });
 
-        // Close mobile menu when clicking on any navigation link
         const mobileNavLinks = mobileMenu.querySelectorAll('a');
         mobileNavLinks.forEach((link) => {
-            link.addEventListener('click', () => closeMenu(mobileMenu, mobileMenuToggle));
+            link.addEventListener('click', (e) => {
+                closeMenu(mobileMenu, mobileMenuToggle)
+                fireAnalytics('menu_link_click', e);
+            });
         });
     }
 
@@ -113,4 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
             (mobileMenuToggle || mobileToolsToggle || toolsToggle)?.focus?.();
         }
     });
-});
+}
+
+export { initMenu };

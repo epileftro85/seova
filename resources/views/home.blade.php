@@ -99,7 +99,7 @@
         <h2 id="tools-heading" class="text-3xl font-bold mb-4">Free SEO tools for everyone.</h2>
         <p class="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">We believe powerful tools should be accessible. That's why we're building a suite of free SEO tools — supported by Google Ads, not your wallet.</p>
         <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" role="list">
-            <li>
+            {{--<li>
                 <a href="{{ route('tools.keyword') }}" class="group block bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 transition p-6 rounded-lg outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 h-full" aria-describedby="tool-keyword-desc" data-analytics-event="home_tools_keyword">
                     <div class="flex flex-col items-center gap-3">
                         <svg class="w-10 h-10 text-gray-500 group-hover:text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
@@ -109,22 +109,9 @@
                         <p id="tool-keyword-desc" class="text-xs text-gray-500 text-center">Generate keyword idea variations.</p>
                     </div>
                 </a>
-            </li>
-            <li>
-                <a href="{{ route('tools.meta') }}" class="group block bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 transition p-6 rounded-lg outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 h-full" aria-describedby="tool-meta-desc" data-analytics-event="home_tools_meta">
-                    <div class="flex flex-col items-center gap-3">
-                        <svg class="w-10 h-10 text-gray-500 group-hover:text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                            <path d="M3 3v18h18" />
-                            <path d="M7 16V8" />
-                            <path d="M13 16V4" />
-                            <path d="M19 21V12" />
-                        </svg>
-                        <strong class="text-gray-800">Meta Tag Analyzer</strong>
-                        <p id="tool-meta-desc" class="text-xs text-gray-500 text-center">Check title & description quality.</p>
-                    </div>
-                </a>
-            </li>
-            <li>
+            </li>--}}
+
+            {{--<li>
                 <a href="{{ route('tools.crawler') }}" class="group block bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 transition p-6 rounded-lg outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 h-full" aria-describedby="tool-crawler-desc" data-analytics-event="home_tools_crawler">
                     <div class="flex flex-col items-center gap-3">
                         <svg class="w-10 h-10 text-gray-500 group-hover:text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
@@ -142,7 +129,7 @@
                         <p id="tool-crawler-desc" class="text-xs text-gray-500 text-center">Discover internal links (prototype).</p>
                     </div>
                 </a>
-            </li>
+            </li>--}}
             <li>
                 <a href="{{ route('tools.serp') }}" class="group block bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 transition p-6 rounded-lg outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 h-full" aria-describedby="tool-serp-desc" data-analytics-event="home_tools_serp">
                     <div class="flex flex-col items-center gap-3">
@@ -154,6 +141,31 @@
                         </svg>
                         <strong class="text-gray-800">SERP Preview</strong>
                         <p id="tool-serp-desc" class="text-xs text-gray-500 text-center">Simulate Google result snippet.</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('tools.word-counter') }}" class="group block bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 transition p-6 rounded-lg outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 h-full" aria-describedby="tool-word-counter-desc" data-analytics-event="home_tools_word_counter">
+                    <div class="flex flex-col items-center gap-3">
+                        <svg class="w-10 h-10 text-gray-500 group-hover:text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <path d="M10 13a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-6z" />
+                            <path d="M10 3h4v4h-4z" />
+                            <path d="M4 17h16" />
+                        </svg>
+                        <strong class="text-gray-800">Word Counter</strong>
+                        <p id="tool-word-counter-desc" class="text-xs text-gray-500 text-center">Count words and characters in a text.</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('tools.meta-tag-generator') }}" class="group block bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 transition p-6 rounded-lg outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 h-full" aria-describedby="tool-meta-tag-generator-desc" data-analytics-event="home_tools_meta_tag_generator">
+                    <div class="flex flex-col items-center gap-3">
+                        <svg class="w-10 h-10 text-gray-500 group-hover:text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <path d="M12 15l-4-4h8l-4 4z" />
+                            <path d="M12 3v8" />
+                        </svg>
+                        <strong class="text-gray-800">Meta Tag Generator</strong>
+                        <p id="tool-meta-tag-generator-desc" class="text-xs text-gray-500 text-center">Generate meta tags for your website.</p>
                     </div>
                 </a>
             </li>
