@@ -14,6 +14,7 @@ export default defineConfig({
                 'resources/js/tools/serp-preview.js',
                 'resources/js/tools/word-counter.js',
                 'resources/js/tools/meta-tag-generator.js',
+                'resources/js/tools/json-schema-validator.js',
             ],
             refresh: true,
         }),

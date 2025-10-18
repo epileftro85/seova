@@ -22,6 +22,7 @@
                         <a href="{{ route('tools.serp') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_serp">SERP Preview</a>
                         <a href="{{ route('tools.word-counter') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_word_counter">Word Counter</a>
                         <a href="{{ route('tools.meta-tag-generator') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_meta_tag">Meta Tag Generator</a>
+                        <a href="{{ route('tools.json-schema-validator') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-seova-orange focus:text-seova-orange hover:bg-gray-50 focus:bg-gray-50 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="nav_tools_json_schema_validator">JSON Schema Validator</a>
                     </div>
                 </div>
             </nav>
@@ -52,6 +53,7 @@
                         <a href="{{ route('tools.serp') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_serp">SERP Preview</a>
                         <a href="{{ route('tools.word-counter') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_word_counter">Word Counter</a>
                         <a href="{{ route('tools.meta-tag-generator') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_meta_tag">Meta Tag Generator</a>
+                        <a href="{{ route('tools.json-schema-validator') }}" class="block text-sm text-gray-600 hover:text-seova-orange focus:text-seova-orange py-1 rounded focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2" role="menuitem" data-analytics-event="navm_tools_json_schema_validator">JSON Schema Validator</a>
                     </div>
                 </div>
                 <a href="#contact" class="text-gray-700 hover:text-seova-orange font-medium py-2" data-analytics-event="navm_contact">Contact</a>
