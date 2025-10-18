@@ -6,6 +6,8 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use JsonSchema\Validator;
+use JsonSchema\Constraints\Constraint;
 
 class ToolsController extends Controller
 {
@@ -42,6 +44,65 @@ class ToolsController extends Controller
     public function metaTagGenerator(): View
     {
         return view('tools.meta-tag-generator');
+    }
+
+    public function jsonSchemaValidator(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'schema' => 'required|json',
+            ]);
+
+            try {
+                $schema = json_decode($request->input('schema'));
+                
+                // Initialize the validator
+                $validator = new Validator();
+                
+                // Validate the schema structure
+                $validator->validate(
+                    $schema,
+                    Constraint::CHECK_MODE_STRICT
+                );
+                
+                if ($validator->isValid()) {
+                    return response()->json([
+                        'valid' => true,
+                        'message' => 'JSON Schema is valid',
+                        'version' => 'draft-07' // The package supports multiple drafts, default is draft-07
+                    ]);
+                }
+                
+                // Format validation errors
+                $errors = [];
+                foreach ($validator->getErrors() as $error) {
+                    $errors[] = [
+                        'property' => $error['property'],
+                        'message' => $error['message'],
+                        'constraint' => $error['constraint'] ?? null,
+                        'pointer' => $error['pointer'] ?? null
+                    ];
+                }
+                
+                return response()->json([
+                    'valid' => false,
+                    'errors' => $errors
+                ], 422);
+                
+            } catch (\Exception $e) {
+                return response()->json([
+                    'valid' => false,
+                    'errors' => [[
+                        'message' => 'Validation error: ' . $e->getMessage(),
+                        'file' => $e->getFile(),
+                        'line' => $e->getLine()
+                    ]],
+                    'trace' => config('app.debug') ? $e->getTraceAsString() : null
+                ], 500);
+            }
+        }
+
+        return view('tools.json-schema-validator');
     }
 
     /**

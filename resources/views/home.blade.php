@@ -169,6 +169,18 @@
                     </div>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('tools.json-schema-validator') }}" class="group block bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 transition p-6 rounded-lg outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 h-full" aria-describedby="tool-json-schema-validator-desc" data-analytics-event="home_tools_json_schema_validator">
+                    <div class="flex flex-col items-center gap-3">
+                        <svg class="w-10 h-10 text-gray-500 group-hover:text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <path d="M14 2v6h6M10 13L8 15l2 2M14 13l2 2-2 2" />
+                        </svg>
+                        <strong class="text-gray-800">JSON Schema Validator</strong>
+                        <p id="tool-json-schema-validator-desc" class="text-xs text-gray-500 text-center">Validate your JSON-LD schemas.</p>
+                    </div>
+                </a>
+            </li>
         </ul>
         <p class="mt-6 text-sm text-gray-500">These tools are forever free. No login. No limits.</p>
     </div>

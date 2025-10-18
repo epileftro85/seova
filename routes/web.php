@@ -18,4 +18,6 @@ Route::prefix('tools')->name('tools.')->group(function () {
 	Route::get('/serp-preview/fetch', [ToolsController::class, 'serpPreviewFetch'])->name('serp.fetch');
 	Route::get('/word-counter', [ToolsController::class, 'wordCounter'])->name('word-counter');
 	Route::get('/meta-tag-generator', [ToolsController::class, 'metaTagGenerator'])->name('meta-tag-generator');
+	Route::get('/json-schema-validator', [ToolsController::class, 'jsonSchemaValidator'])->name('json-schema-validator');
+	Route::post('/json-schema-validator', [ToolsController::class, 'jsonSchemaValidator'])->name('json-schema-validator.store');
 });

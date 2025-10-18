@@ -29,6 +29,9 @@
     <meta name="twitter:image" content="@yield('twitter_image', asset('img/seova-twitter-card.jpg'))">
     <meta name="twitter:image:alt" content="Seova SEO Virtual Assistant">
     
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
         @yield('json-ld', '{}')
