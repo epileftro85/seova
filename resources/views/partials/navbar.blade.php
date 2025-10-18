@@ -7,14 +7,14 @@
                     <img src="{{ asset('img/seova-logo.svg') }}" alt="Seova SEO Virtual Assistant Logo" class="h-12 md:h-14" width="160" height="56" loading="eager" decoding="async" fetchpriority="high" />
                 </a>
             </div>
-            
+
             <!-- Desktop Navigation -->
             <nav class="space-x-6 hidden md:flex" role="navigation" aria-label="Main navigation">
                 <a href="{{ url('/') }}" class="text-gray-700 hover:text-seova-orange font-medium" aria-current="@if(request()->is('/')) page @endif" data-analytics-event="nav_home">Home</a>
                 <a href="{{ url('/') }}#services" class="text-gray-700 hover:text-seova-orange font-medium" data-analytics-event="nav_services">Services</a>
                 <div class="relative">
                     <button id="toolsToggle" class="text-gray-700 hover:text-seova-orange font-medium focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 rounded" aria-expanded="false" aria-haspopup="true" aria-label="Open tools menu" data-analytics-event="nav_tools_toggle">
-                        Tools 
+                        Tools
                         <span aria-hidden="true">▼</span>
                     </button>
                     <div id="toolsMenu" class="absolute hidden bg-white shadow-md rounded-md mt-2 w-56 z-10" role="menu" aria-labelledby="toolsToggle">
@@ -25,10 +25,10 @@
                     </div>
                 </div>
             </nav>
-            
+
             <!-- Desktop CTA Button -->
             <a href="{{ url('/') }}#contact" class="bg-seova-green text-white px-4 py-2 rounded-md font-semibold hover:bg-blue-700 transition hidden md:block" aria-label="Get a free SEO quote from Seova" data-analytics-event="nav_cta_quote">Get a Free Quote</a>
-            
+
             <!-- Mobile Menu Button -->
             <button id="mobileMenuToggle" class="md:hidden text-gray-700 hover:text-seova-orange focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 rounded" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open mobile menu" data-analytics-event="nav_mobile_menu_toggle">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -36,15 +36,15 @@
                 </svg>
             </button>
         </div>
-        
+
         <!-- Mobile Navigation Menu -->
         <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-200" role="navigation" aria-label="Mobile navigation">
             <nav class="flex flex-col space-y-3 mt-4">
                 <a href="{{ url('/') }}" class="text-gray-700 hover:text-seova-orange font-medium py-2" aria-current="@if(request()->is('/')) page @endif" data-analytics-event="navm_home">Home</a>
-                <a href="#services" class="text-gray-700 hover:text-seova-orange font-medium py-2" data-analytics-event="navm_services">Services</a>
+                <a href="{{ url('/') }}#services" class="text-gray-700 hover:text-seova-orange font-medium py-2" data-analytics-event="navm_services">Services</a>
                 <div class="py-2">
                     <button id="mobileToolsToggle" class="text-gray-700 hover:text-seova-orange font-medium focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 rounded w-full text-left" aria-expanded="false" aria-controls="mobileToolsMenu" aria-label="Open mobile tools menu" data-analytics-event="navm_tools_toggle">
-                        Tools 
+                        Tools
                         <span aria-hidden="true">▼</span>
                     </button>
                     <div id="mobileToolsMenu" class="hidden ml-4 mt-2 space-y-2" role="menu" aria-labelledby="mobileToolsToggle">
