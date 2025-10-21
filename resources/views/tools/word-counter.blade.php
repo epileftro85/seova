@@ -3,9 +3,13 @@
 @section('title', 'Word Counter & Text Analyzer | Seova Free SEO Tool')
 @section('description', 'Free tool to count words, characters, sentences and calculate reading time. Perfect for content optimization and SEO writing.')
 
-@inject('structuredData', 'App\Services\StructuredDataService')
+@section('og_title', 'Word Counter & Text Analyzer | Seova Free SEO Tool')
+@section('og_description', 'Free tool to count words, characters, sentences and calculate reading time. Perfect for content optimization and SEO writing.')
+@section('twitter_title', 'Word Counter & Text Analyzer | Seova Free SEO Tool')
+@section('twitter_description', 'Free tool to count words, characters, sentences and calculate reading time. Perfect for content optimization and SEO writing.')
+
 @section('json-ld')
-{!! json_encode($structuredData->wordCounterStructuredData(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+<script type="application/ld+json">@json($structuredData, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)</script>
 @endsection
 
 @section('content')
@@ -20,8 +24,8 @@
         <div class="space-y-6">
             <div>
                 <label for="content" class="block mb-2 font-medium">Your Text</label>
-                <textarea 
-                    id="content" 
+                <textarea
+                    id="content"
                     class="w-full h-96 border rounded-md p-4 focus:ring-seova-orange focus:border-seova-orange font-mono text-sm"
                     placeholder="Paste or type your content here..."
                 ></textarea>
@@ -35,33 +39,33 @@
         <!-- Right: Statistics Panel -->
         <div class="space-y-6 md:sticky md:top-24">
             <h2 class="text-xl font-semibold">Text Statistics</h2>
-            
+
             <div class="grid gap-4 sm:grid-cols-2">
                 <!-- Word Count -->
                 <div class="bg-white p-4 rounded-lg border">
                     <div class="text-sm text-gray-600">Words</div>
                     <div class="text-2xl font-bold mt-1" id="wordCount">0</div>
                 </div>
-                
+
                 <!-- Character Count -->
                 <div class="bg-white p-4 rounded-lg border">
                     <div class="text-sm text-gray-600">Characters</div>
                     <div class="text-2xl font-bold mt-1" id="charCount">0</div>
                     <div class="text-xs text-gray-500 mt-1" id="charNoSpaces">0 excluding spaces</div>
                 </div>
-                
+
                 <!-- Sentences -->
                 <div class="bg-white p-4 rounded-lg border">
                     <div class="text-sm text-gray-600">Sentences</div>
                     <div class="text-2xl font-bold mt-1" id="sentenceCount">0</div>
                 </div>
-                
+
                 <!-- Paragraphs -->
                 <div class="bg-white p-4 rounded-lg border">
                     <div class="text-sm text-gray-600">Paragraphs</div>
                     <div class="text-2xl font-bold mt-1" id="paragraphCount">0</div>
                 </div>
-                
+
                 <!-- Reading Time -->
                 <div class="sm:col-span-2 bg-white p-4 rounded-lg border">
                     <div class="text-sm text-gray-600">Estimated Reading Time</div>

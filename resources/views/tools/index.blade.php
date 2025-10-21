@@ -3,6 +3,10 @@
 @section('title', 'Free SEO Tools | Seova')
 @section('description', 'Access free SEO utilities: keyword explorer, meta tag analyzer, site crawler, and SERP preview to optimize your site.')
 
+@section('meta')
+<script type="application/ld+json">@json($structuredData, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)</script>
+@endsection
+
 @section('hero')
 <section class="bg-white relative" aria-labelledby="tools-hero-heading">
     <div class="max-w-7xl mx-auto px-6 py-20 text-center">
