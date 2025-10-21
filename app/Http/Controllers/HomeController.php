@@ -17,4 +17,14 @@ class HomeController extends Controller
             'structuredData' => $this->structuredDataService->homeStructuredData(),
         ]);
     }
+
+    public function privacy(): View
+    {
+        return view('privacy-policy');
+    }
+
+    public function terms(): View
+    {
+        return view('terms-of-service');
+    }
 }

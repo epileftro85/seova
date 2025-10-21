@@ -6,6 +6,8 @@ use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ToolsController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy-policy');
+Route::get('/terms-of-service', [HomeController::class, 'terms'])->name('terms-of-service');
 
 // Quote form submission
 Route::post('/quote', [QuoteController::class, 'store'])->name('quote.store');

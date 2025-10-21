@@ -191,9 +191,9 @@ function initQuoteModal(modal) {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
   modalForm?.addEventListener('submit', (e) => fireAnalytics('quote_form_submit', e));
 
-  modal.addEventListener('click', (e) => {
+  /*modal.addEventListener('click', (e) => {
     fireAnalytics('quote_button_click', e);
-  });
+  });*/
 
   
 

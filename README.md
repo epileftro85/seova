@@ -1,61 +1,88 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Seova Deployment Guide
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Seova is a data-driven virtual assistant for SEO implementation. Use this checklist to publish the production site with confidence. Each item is designed to be verifiable on the target environment.
 
-## About Laravel
+## Prerequisites
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.2+
+- Composer 2.x
+- Node.js 18+ and npm
+- MySQL 8 / MariaDB 10.6+ (or another supported database)
+- Redis (optional, recommended for queues/cache)
+- Mailgun account with a verified sending domain
+- Web server configured to serve the `public/` directory (Nginx, Apache, etc.)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Publish Checklist
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Repository & Dependencies
+- [ ] Clone the repository: `git clone git@github.com:epileftro85/seova.git`
+- [ ] Install PHP dependencies: `composer install --no-dev --optimize-autoloader`
+- [ ] Install frontend dependencies: `npm ci`
 
-## Learning Laravel
+### Environment Configuration
+- [ ] Copy `.env.example` to `.env`
+- [ ] Set `APP_ENV=production`
+- [ ] Set `APP_URL=https://your-domain.com`
+- [ ] Set `APP_DEBUG=false`
+- [ ] Set `APP_LOCALE` and `APP_FALLBACK_LOCALE` if localization differs
+- [ ] Generate application key (run once per environment): `php artisan key:generate`
+- [ ] Confirm timezone and logging values match infrastructure requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Database & Cache
+- [ ] Create a production database and user with required privileges
+- [ ] Update `.env` with `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`
+- [ ] Configure `CACHE_STORE`/`SESSION_DRIVER`/`QUEUE_CONNECTION` (Redis recommended)
+- [ ] Run migrations: `php artisan migrate --force`
+- [ ] (Optional) Seed demo data if needed: `php artisan db:seed --force`
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Mailgun & Email Delivery
+- [ ] Create or select a verified Mailgun domain
+- [ ] Add DNS records so Mailgun verifies sending and tracking
+- [ ] Generate Mailgun API credentials
+- [ ] Update `.env` with:
+  - `MAIL_MAILER=mailgun`
+  - `MAILGUN_DOMAIN=your.mailgun.domain`
+  - `MAILGUN_SECRET=mailgun_api_key`
+  - `MAILGUN_ENDPOINT=api.mailgun.net`
+- [ ] Set `MAIL_FROM_ADDRESS=hello@seova.pro` (or your support inbox)
+- [ ] Set `MAIL_FROM_NAME="Seova"`
+- [ ] Verify a test email using `php artisan tinker` or by submitting the quote form
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Application Branding & Legal Links
+- [ ] Confirm `config('mail.from.address')` resolves to the production sender
+- [ ] Ensure footer links to `/privacy-policy` and `/terms-of-service` load successfully
+- [ ] Review `resources/views/privacy-policy.blade.php` and `resources/views/terms-of-service.blade.php` for jurisdiction-specific updates
 
-## Laravel Sponsors
+### Assets & Build
+- [ ] Build production assets: `npm run build`
+- [ ] Publish storage symlink if needed: `php artisan storage:link`
+- [ ] Cache configuration and routes:
+  - `php artisan config:cache`
+  - `php artisan route:cache`
+  - `php artisan view:cache`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Queue & Scheduler
+- [ ] Start a queue worker (supervisor/systemd): `php artisan queue:work --sleep=3 --tries=1`
+- [ ] Add a cron to run every minute: `* * * * * php /path/to/project/artisan schedule:run >> /dev/null 2>&1`
 
-### Premium Partners
+### Verification
+- [ ] Hit the homepage and confirm hero/services sections render correctly
+- [ ] Submit the quote form and confirm Mailgun delivers the notification
+- [ ] Check browser console/network for JS/CSS build errors
+- [ ] Verify analytics and Google Ads tags (if configured) fire as expected
+- [ ] Enable monitoring/alerts (uptime, logs, queue failures)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Useful Commands
 
-## Contributing
+```bash
+# Clear caches safely
+php artisan optimize:clear
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Run automated tests before deploying
+php artisan test
 
-## Code of Conduct
+# Tail log channel (requires Laravel Pail)
+php artisan pail --timeout=0
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Keep this checklist in sync with changes to infrastructure, legal requirements, or third-party integrations. Document deviations directly in the `.env` or infrastructure-as-code repository.

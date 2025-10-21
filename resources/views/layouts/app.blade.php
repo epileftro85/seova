@@ -78,6 +78,26 @@
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white text-center py-6" role="contentinfo">
+
+        @php($businessEmail = config('mail.from.address') ?? 'hello@seova.pro')
+
+        <section class="bg-gray-900 text-gray-100 py-16 px-6" aria-labelledby="legal-heading">
+            <div class="max-w-4xl mx-auto space-y-8 text-left">
+                <h2 id="legal-heading" class="text-2xl font-bold text-center">Legal &amp; Contact Information</h2>
+                <article id="privacy" class="space-y-2">
+                    <h3 class="text-xl font-semibold">Privacy Policy</h3>
+                    <p class="text-sm text-gray-300">Understand how we handle form submissions, analytics data, and free tool usage. <a href="{{ url('/privacy-policy') }}" class="text-seova-orange underline hover:text-seova-orange/80">Read the Privacy Policy</a>.</p>
+                </article>
+                <article class="space-y-2">
+                    <h3 class="text-xl font-semibold">Terms of Service</h3>
+                    <p class="text-sm text-gray-300">Review usage rules and liability details for our free and paid offerings. <a href="{{ url('/terms-of-service') }}" class="text-seova-orange underline hover:text-seova-orange/80">View the Terms of Service</a>.</p>
+                </article>
+                <article class="space-y-2">
+                    <h3 class="text-xl font-semibold">Direct Contact</h3>
+                    <p class="text-sm text-gray-300">Prefer email? Reach us directly at <a href="mailto:{{ $businessEmail }}" class="text-seova-orange underline hover:text-seova-orange/80">{{ $businessEmail }}</a>.</p>
+                </article>
+            </div>
+        </section>
         <p>&copy; {{ date('Y') }} Seova.pro — Data-Driven SEO Virtual Assistant. All rights reserved.</p>
     </footer>
 

@@ -41,7 +41,7 @@
 <section id="services" class="bg-gray-50 pt-24 pb-16 px-6" aria-labelledby="services-heading">
     <div class="max-w-7xl mx-auto">
         <h2 id="services-heading" class="sr-only">Our SEO Services</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 text-center">
             <article class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
                 <div class="mb-4 flex justify-center" aria-hidden="true">
                     <!-- Monochrome (gray) Wrench icon -->
@@ -50,7 +50,18 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-semibold text-seova-orange mb-2">Site Health Audits</h3>
-                <p>Technical diagnostics to keep your website fast, secure, and optimized.</p>
+                <p>Technical diagnostics to keep your website fast, secure, and optimized. We then provide a clear action plan for technical implementation.</p>
+            </article>
+            <article class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+                <div class="mb-4 flex justify-center" aria-hidden="true">
+                    <svg class="w-12 h-12 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="" focusable="false">
+                        <path d="M5 4h9a2 2 0 0 1 2 2v2" />
+                        <path d="M5 4v16h14a2 2 0 0 0 2-2V8l-5 5-4-4-7 7" />
+                        <path d="M9 14h.01" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-seova-orange mb-2">On-Page SEO Implementation</h3>
+                <p>We move beyond strategy to implement Title Tags, Meta Descriptions, H-tag structuring, and internal linking for immediate performance gains.</p>
             </article>
             <article class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
                 <div class="mb-4 flex justify-center" aria-hidden="true">
@@ -84,7 +95,7 @@
                         <path d="M14 5h7v7" />
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-seova-orange mb-2">Automated Reporting Dashboards</h3>
+                <h3 class="text-xl font-semibold text-seova-orange mb-2">Reporting Dashboards</h3>
                 <p>Custom dashboards that turn your data into decisions. No spreadsheets required.</p>
             </article>
         </div>
@@ -217,4 +228,5 @@
 </section>
 
 @include('partials.quote-form')
+
 @endsection
