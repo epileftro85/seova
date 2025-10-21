@@ -1,0 +1,169 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use JsonSchema\Validator;
+use JsonSchema\Constraints\Constraint;
+use App\Services\StructuredDataService;
+
+class ToolsController extends Controller
+{
+    public function __construct(private readonly StructuredDataService $structuredDataService)
+    {
+    }
+
+    public function index(): View
+    {
+        return view('tools.index', [
+            'structuredData' => $this->structuredDataService->toolsIndexStructuredData(),
+        ]);
+    }
+
+    public function keywordExplorer(): View
+    {
+        return view('tools.keyword-explorer');
+    }
+
+    public function metaTagAnalyzer(): View
+    {
+        return view('tools.meta-tag-analyzer');
+    }
+
+    public function siteCrawler(): View
+    {
+        return view('tools.site-crawler');
+    }
+
+    public function serpPreview(): View
+    {
+        return view('tools.serp-preview', [
+            'structuredData' => $this->structuredDataService->serpPreviewStructuredData(),
+        ]);
+    }
+
+    public function wordCounter(): View
+    {
+        return view('tools.word-counter', [
+            'structuredData' => $this->structuredDataService->wordCounterStructuredData(),
+        ]);
+    }
+
+    public function metaTagGenerator(): View
+    {
+        return view('tools.meta-tag-generator', [
+            'structuredData' => $this->structuredDataService->metaTagGeneratorStructuredData(),
+        ]);
+    }
+
+    public function jsonSchemaValidator(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'schema' => 'required|json',
+            ]);
+
+            try {
+                $schema = json_decode($request->input('schema'));
+
+                // Initialize the validator
+                $validator = new Validator();
+
+                // Validate the schema structure
+                $validator->validate(
+                    $schema,
+                    Constraint::CHECK_MODE_STRICT
+                );
+
+                if ($validator->isValid()) {
+                    return response()->json([
+                        'valid' => true,
+                        'message' => 'JSON Schema is valid',
+                        'version' => 'draft-07' // The package supports multiple drafts, default is draft-07
+                    ]);
+                }
+
+                // Format validation errors
+                $errors = [];
+                foreach ($validator->getErrors() as $error) {
+                    $errors[] = [
+                        'property' => $error['property'],
+                        'message' => $error['message'],
+                        'constraint' => $error['constraint'] ?? null,
+                        'pointer' => $error['pointer'] ?? null
+                    ];
+                }
+
+                return response()->json([
+                    'valid' => false,
+                    'errors' => $errors
+                ], 422);
+
+            } catch (\Exception $e) {
+                return response()->json([
+                    'valid' => false,
+                    'errors' => [[
+                        'message' => 'Validation error: ' . $e->getMessage(),
+                        'file' => $e->getFile(),
+                        'line' => $e->getLine()
+                    ]],
+                    'trace' => config('app.debug') ? $e->getTraceAsString() : null
+                ], 500);
+            }
+        }
+
+        return view('tools.json-schema-validator', [
+            'structuredData' => $this->structuredDataService->jsonSchemaValidatorStructuredData(),
+        ]);
+    }
+
+    /**
+     * Lightweight metadata fetcher for SERP preview tool.
+     * Accepts ?url=https://example.com and returns JSON: { title, description }
+     */
+    public function serpPreviewFetch(Request $request)
+    {
+        $request->validate([
+            'url' => ['required','url','max:2048']
+        ]);
+
+        $url = $request->input('url');
+        try {
+            $response = Http::timeout(8)->withHeaders([
+                'User-Agent' => 'SeovaMetaBot/1.0 (+https://seova.pro/tools/serp-preview)'
+            ])->get($url);
+
+            if(!$response->ok()) {
+                return response()->json(['error' => 'Unable to fetch the URL (HTTP '.$response->status().').'], 422);
+            }
+
+            $html = $response->body();
+
+            // Very small / fast parse: regex fallbacks (we avoid full DOM parser dependency here)
+            $title = null;
+            if(preg_match('/<title[^>]*>(.*?)<\/title>/is', $html, $m)) {
+                $title = html_entity_decode(trim($m[1]));
+            }
+            $description = null;
+            if(preg_match('/<meta[^>]+name=["\']description["\'][^>]*content=["\']([^"\']+)["\'][^>]*>/i', $html, $m)) {
+                $description = html_entity_decode(trim($m[1]));
+            } elseif(preg_match('/<meta[^>]+content=["\']([^"\']+)["\'][^>]*name=["\']description["\'][^>]*>/i', $html, $m)) { // attribute order variation
+                $description = html_entity_decode(trim($m[1]));
+            }
+
+            $title = Str::limit($title ?? '', 120, ''); // provide generous limit, client truncates
+            $description = Str::limit($description ?? '', 500, '');
+
+            return response()->json([
+                'title' => $title ?: null,
+                'description' => $description ?: null,
+                'fetched' => now()->toIso8601String(),
+            ]);
+        } catch(\Throwable $e) {
+            return response()->json(['error' => 'Fetch failed: '.$e->getMessage()], 500);
+        }
+    }
+}

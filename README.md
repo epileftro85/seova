@@ -1,214 +1,88 @@
-# SlimFrame
+# Seova Deployment Guide
 
-Lightweight PHP project scaffold with a minimal router, controllers, and a simple SQL-based migration runner. this is mean to be a simple yet powerfull starting point.
+Seova is a data-driven virtual assistant for SEO implementation. Use this checklist to publish the production site with confidence. Each item is designed to be verifiable on the target environment.
 
-## What this is not
+## Prerequisites
 
-- This is not a full framework. It is not intended to be a second Laravel, Symfony, or similar — there are no heavy abstractions, service containers, or elaborate ORMs here.
-- This is not meant to be a composer-heavy, dependency-packed app. The goal is minimal external dependencies so the project stays fast and easy to inspect.
-- This is not a production-ready migration platform with rollbacks, complex SQL parsing, or multi-environment orchestration out of the box. Use a dedicated migration tool for advanced workflows.
+- PHP 8.2+
+- Composer 2.x
+- Node.js 18+ and npm
+- MySQL 8 / MariaDB 10.6+ (or another supported database)
+- Redis (optional, recommended for queues/cache)
+- Mailgun account with a verified sending domain
+- Web server configured to serve the `public/` directory (Nginx, Apache, etc.)
 
-This project is intentionally simple: a fast PHP starting point you can understand, modify, and deploy without a large framework or many runtime dependencies.
+## Publish Checklist
 
-## Quick overview
-- Docker Compose for local development: `docker compose.yml` (services: `mysql`, `php`, `nginx`)
-- Migrations directory: `migrations/`
-- Migration runner: `migrate.php` (CLI)
+### Repository & Dependencies
+- [ ] Clone the repository: `git clone git@github.com:epileftro85/seova.git`
+- [ ] Install PHP dependencies: `composer install --no-dev --optimize-autoloader`
+- [ ] Install frontend dependencies: `npm ci`
 
-## Requirements
-- Docker & docker compose (recommended for local development)
-- PHP CLI (optional if you run migrator on host)
-- Composer dependencies are expected under `vendor/` in this repo (already present).
+### Environment Configuration
+- [ ] Copy `.env.example` to `.env`
+- [ ] Set `APP_ENV=production`
+- [ ] Set `APP_URL=https://your-domain.com`
+- [ ] Set `APP_DEBUG=false`
+- [ ] Set `APP_LOCALE` and `APP_FALLBACK_LOCALE` if localization differs
+- [ ] Generate application key (run once per environment): `php artisan key:generate`
+- [ ] Confirm timezone and logging values match infrastructure requirements
 
-## Getting started (recommended: Docker)
+### Database & Cache
+- [ ] Create a production database and user with required privileges
+- [ ] Update `.env` with `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`
+- [ ] Configure `CACHE_STORE`/`SESSION_DRIVER`/`QUEUE_CONNECTION` (Redis recommended)
+- [ ] Run migrations: `php artisan migrate --force`
+- [ ] (Optional) Seed demo data if needed: `php artisan db:seed --force`
 
-1. Start containers:
+### Mailgun & Email Delivery
+- [ ] Create or select a verified Mailgun domain
+- [ ] Add DNS records so Mailgun verifies sending and tracking
+- [ ] Generate Mailgun API credentials
+- [ ] Update `.env` with:
+  - `MAIL_MAILER=mailgun`
+  - `MAILGUN_DOMAIN=your.mailgun.domain`
+  - `MAILGUN_SECRET=mailgun_api_key`
+  - `MAILGUN_ENDPOINT=api.mailgun.net`
+- [ ] Set `MAIL_FROM_ADDRESS=hello@seova.pro` (or your support inbox)
+- [ ] Set `MAIL_FROM_NAME="Seova"`
+- [ ] Verify a test email using `php artisan tinker` or by submitting the quote form
 
-```
-docker compose up -d --build
-```
+### Application Branding & Legal Links
+- [ ] Confirm `config('mail.from.address')` resolves to the production sender
+- [ ] Ensure footer links to `/privacy-policy` and `/terms-of-service` load successfully
+- [ ] Review `resources/views/privacy-policy.blade.php` and `resources/views/terms-of-service.blade.php` for jurisdiction-specific updates
 
-2. Run the migration runner from the `php` container (recommended because the service name `mysql` resolves on the Docker network):
+### Assets & Build
+- [ ] Build production assets: `npm run build`
+- [ ] Publish storage symlink if needed: `php artisan storage:link`
+- [ ] Cache configuration and routes:
+  - `php artisan config:cache`
+  - `php artisan route:cache`
+  - `php artisan view:cache`
 
-```
-docker compose run --rm php php /var/www/html/migrate.php
-```
+### Queue & Scheduler
+- [ ] Start a queue worker (supervisor/systemd): `php artisan queue:work --sleep=3 --tries=1`
+- [ ] Add a cron to run every minute: `* * * * * php /path/to/project/artisan schedule:run >> /dev/null 2>&1`
 
-3. Verify tables exist (run in the mysql container):
+### Verification
+- [ ] Hit the homepage and confirm hero/services sections render correctly
+- [ ] Submit the quote form and confirm Mailgun delivers the notification
+- [ ] Check browser console/network for JS/CSS build errors
+- [ ] Verify analytics and Google Ads tags (if configured) fire as expected
+- [ ] Enable monitoring/alerts (uptime, logs, queue failures)
 
-```
-docker compose exec mysql mysql -u seoanchor -pseoanchor -e "USE seoanchor; SHOW TABLES;"
-```
+## Useful Commands
 
-4. Install composer and generate classes autoloading
-```
-composer install && composer dump-autoload -o
-```
+```bash
+# Clear caches safely
+php artisan optimize:clear
 
-5. Open the app in a browser at `http://localhost` (nginx is mapped to port 80 in `docker compose.yml`).
+# Run automated tests before deploying
+php artisan test
 
-## Migrations
-
-- Location: `migrations/`
-- Files: plain `.sql` files. Name them with a leading sequence (e.g. `001_create_users.sql`, `002_create_user_role_table.sql`) so they run in order.
-- The migrator (`migrate.php`) behavior:
-  - Creates a `migrations` table to track applied migration filenames.
-  - Skips files already recorded in `migrations`.
-  - Skips migrations containing `DROP TABLE` (safety: will not automatically drop tables).
-  - Attempts a simple heuristic to add `IF NOT EXISTS` to `CREATE TABLE` statements that lack it (a convenience; review complex SQL manually).
-  - Runs each migration inside a transaction and records it after successful execution.
-
-Safety notes:
-- The migrator is intentionally conservative. For complex schema changes (ALTER, stored procedures, multiple statements with custom delimiters) review and run manually.
-- Always back up production data and use a proper migration system (Phinx, Laravel migrations, Doctrine Migrations) for production workflows.
-
-## Database configuration
-
-Database configuration is centralized under `Config/Database/Connection.php` and `Config/Database/Database.php`.
-
-- `Connection::db()` returns an array of defaults read from environment variables. Defaults in the file:
-  - DB_DRIVER: `mysql`
-  - DB_HOST: `mysql` (note: Docker service hostname; on the host use `127.0.0.1`)
-  - DB_PORT: `3306`
-  - DB_NAME, DB_USER, DB_PASSWORD: `seoanchor` by default
-
-- `Database::pdo()` builds a PDO connection for `mysql`, `pgsql`, or `sqlite` using the config and sets safe PDO options (exceptions, default fetch mode, no emulated prepares). It also exposes helper methods: `begin()`, `commit()`, `rollBack()`, `driver()`, and `quoteIdent()`.
-
-If you need to override settings for local development, export environment variables or set them in your Docker `environment` stanza (already done for the `php` service in `docker compose.yml`).
-
-## How to add a migration
-
-1. Create a new file in `migrations/` with a prefixed sequence number, e.g. `003_add_profiles.sql`.
-2. Prefer `CREATE TABLE IF NOT EXISTS` and avoid `DROP TABLE` in automated migrations.
-3. Run the migrator (container recommended):
-
-## Router and routes
-
-- `Routes/Router.php` contains a small routing layer used by the application.
-- Route definitions live in `Routes/WebRoutes.php` and are initialized from `Routes/init.php`.
-- Controllers are in `Controllers/` and generally return rendered views from `views/`.
-
-## View System
-
-The view system has been enhanced with a lightweight template engine that provides better organization, security, and maintainability while keeping the framework simple.
-
-### Key Features
-- **Template Engine**: Custom lightweight template system with layout support
-- **Security**: Automatic HTML escaping and XSS protection
-- **Helper Functions**: Built-in utilities for common tasks (URLs, assets, formatting)
-- **Layout System**: Reusable layouts with sections and inheritance
-- **Flash Messages**: Professional component-based messaging system
-
-### Usage
-```php
-// In your controller
-use App\Utils\View;
-
-class ExampleController extends Controller
-{
-    public function index()
-    {
-        View::make()
-            ->with(['title' => 'My Page', 'users' => $users])
-            ->display('users/index', 'layout');
-    }
-}
+# Tail log channel (requires Laravel Pail)
+php artisan pail --timeout=0
 ```
 
-For detailed documentation including all available features, helper functions, and examples, see [VIEW_SYSTEM.md](VIEW_SYSTEM.md).
-
-## Request Validation
-
-The framework includes a robust request validation system that provides secure input validation and sanitization.
-
-### Key Features
-- **Base Request Class**: `App\Requests\Request` provides the foundation for all validations
-- **Rule-Based Validation**: Define validation rules for each field
-- **Automatic Sanitization**: Input cleaning and type conversion
-- **Error Handling**: Comprehensive error messages and validation feedback
-- **Security**: Protection against common web vulnerabilities
-
-### Available Request Classes
-- **RegisterRequest**: Handles user registration validation
-- **LoginRequest**: Manages login form validation
-- **Custom Requests**: Extend the base Request class for your specific needs
-
-### Usage Example
-```php
-// In your controller
-use App\Requests\RegisterRequest;
-
-class AuthController extends Controller
-{
-    public function register()
-    {
-        $request = new RegisterRequest();
-        
-        if (!$request->validate($_POST)) {
-            // Handle validation errors
-            $errors = $request->getErrors();
-            return View::make()
-                ->with(['errors' => $errors])
-                ->display('auth/register', 'layout');
-        }
-        
-        // Process valid data
-        $data = $request->getValidatedData();
-        // ... registration logic
-    }
-}
-```
-
-### Validation Rules
-- `required`: Field must be present and not empty
-- `email`: Must be a valid email format
-- `min:X`: Minimum length for strings, minimum value for numbers
-- `max:X`: Maximum length for strings, maximum value for numbers
-- `string`: Must be a valid string
-- `numeric`: Must be a valid number
-- `confirmed`: Must match a confirmation field (e.g., password_confirmation)
-
-## Middleware
-
-- Middleware lives under `Middlewares/` and the base helper is `Middlewares/Middleware.php`.
-- There are two types of middleware:
-  - Global middleware (applied to every route) — registerable via `Middleware::use_middleware()`.
-  - Named middleware (registered once and referenced by name) — registerable via `Middleware::register_middleware($name, $callable)`.
-
-- `AuthMiddleware` shows the pattern: it registers a named middleware `auth` that redirects unauthenticated users to `/`.
-
-- In `Routes/init.php` the app calls `AuthMiddleware::register()` to ensure the named middleware is available when routes are defined.
-
-- Attaching middleware to routes:
-  - When declaring routes you can pass an array of middleware as the third parameter. The array entries may be:
-    - A string referring to a named middleware (e.g. `'auth'`).
-    - A callable middleware (e.g. `function(callable $next){ ... }`).
-
-- Example: protect the dashboard route with the named `auth` middleware:
-
-```php
-get('/dashboard', 'DashController@index', ['auth']);
-```
-
-- Execution order and behavior:
-  - The router merges `Middleware::$GLOBAL_MIDDLEWARE` with the route-specific middleware array.
-  - Named middleware are resolved to their registered callables before execution.
-  - Middleware are executed in order (global first, then route-specific). Each middleware receives a single argument — a `$next` callable — and must call `$next()` to continue the pipeline. If a middleware does not call `$next()` (for example, it redirects), the pipeline stops and the route handler is not executed.
-
-- Error handling:
-  - If a named middleware is referenced but not registered, the router returns HTTP 500 with `Unknown middleware: <name>`.
-  - If an invalid middleware value is supplied, the router returns HTTP 500 with `Invalid middleware`.
-
-## Troubleshooting common errors
-
-- PDOException: SQLSTATE[HY000] [2002] No such file or directory
-  - Cause: PHP tried to connect to a DB host that isn't resolvable from the environment (often `mysql` on host). Solution: run the migrator inside the php container (recommended) or set `DB_HOST=127.0.0.1` and ensure MySQL port is published.
-
-- Base table or view not found
-  - Cause: the web app is connected to a database that lacks the expected table (for example, `users` was not created). Solution: run the migrator in the environment the web app uses (see commands above) and verify `SHOW TABLES;` in the target DB.
-
-```
-docker compose run --rm php php /var/www/html/migrate.php
-```
----
-Generated on: 2025-08-28
+Keep this checklist in sync with changes to infrastructure, legal requirements, or third-party integrations. Document deviations directly in the `.env` or infrastructure-as-code repository.
