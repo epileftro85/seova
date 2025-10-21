@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'SERP P                <input id="boldKeywords" type="text" class="w-full border rounded-md p-3 focus:ring-seova-orange focus:border-seova-orange" placeholder="e.g. affordable, startups, seo" />
-                <p class="text-xs text-gray-500 mt-1">Enter words separated by commas. Matches in the meta description will be wrapped in &lt;strong&gt; tags.</p>
-            </div>
-
-            <!-- Engine + Actions -->w | Seova Free SEO Tool')
+@section('title', 'Serp Preview | SeoVa')
 @section('description', 'Preview how your page title and meta description might appear in search results.')
+
+@section('og_title', 'SERP Preview Tool | Seova Free SEO Tool')
+@section('og_description', 'Craft SEO‑friendly titles & meta descriptions and see how they may appear in Google or Bing. Fetch an existing page or write manually.')
+@section('twitter_title', 'SERP Preview Tool | Seova Free SEO Tool')
+@section('twitter_description', 'Craft SEO‑friendly titles & meta descriptions and see how they may appear in Google or Bing. Fetch an existing page or write manually.')
+
+@section('json-ld')
+<script type="application/ld+json">@json($structuredData, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)</script>
+@endsection
 
 @section('content')
 <section class="max-w-6xl mx-auto px-6 py-12" aria-labelledby="serp-preview-heading">
@@ -152,7 +157,7 @@
         <h3 id="optimization-guide" class="text-xl font-semibold mt-12 mb-4">How to Create High-Performance SERP Snippets</h3>
         <div class="space-y-4 text-gray-600">
             <p>Creating effective SERP snippets is both an art and a science. Here's how to maximize your search visibility:</p>
-            
+
             <ol class="list-decimal pl-6 space-y-3">
                 <li><strong>Front-load important keywords</strong> - Place primary keywords near the beginning of titles and descriptions where they have the most impact.</li>
                 <li><strong>Write compelling calls-to-action</strong> - Use action words and highlight unique value propositions in your meta descriptions.</li>

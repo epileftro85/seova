@@ -26,6 +26,11 @@ class StructuredDataService
                     'logo' => asset('img/seova-logo.png'),
                     'description' => 'Seova is an SEO Virtual Assistant agency helping small and medium businesses grow with smart, data-driven SEO.',
                     'areaServed' => 'Worldwide',
+                    'contactPoint' => [
+                        '@type' => 'ContactPoint',
+                        'contactType' => 'customer support',
+                        'url' => url('/') . '#contact',
+                    ],
                 ],
 
                 // WebSite entity
@@ -49,6 +54,15 @@ class StructuredDataService
                     'isPartOf' => [ '@id' => $websiteId ],
                     'about' => [ '@id' => $orgId ],
                     'inLanguage' => 'en',
+                    'primaryImageOfPage' => [
+                        '@type' => 'ImageObject',
+                        '@id' => asset('img/seova-og-image.jpg') . '#primaryimage',
+                        'url' => asset('img/seova-og-image.jpg'),
+                        'contentUrl' => asset('img/seova-og-image.jpg'),
+                    ],
+                    'mainEntity' => [
+                        '@id' => $orgId,
+                    ],
                 ]
             ]
         ];
@@ -60,34 +74,80 @@ class StructuredDataService
     public function wordCounterStructuredData(): array
     {
         $toolUrl = route('tools.word-counter');
-        $websiteId = url('/') . '#website';
-        $orgId = url('/') . '#organization';
+        $homeUrl = url('/');
+        $websiteId = $homeUrl . '#website';
+        $orgId = $homeUrl . '#organization';
 
         return [
             '@context' => 'https://schema.org',
             '@graph' => [
+                // Organization
+                [
+                    '@type' => 'Organization',
+                    '@id' => $orgId,
+                    'name' => 'Seova',
+                    'url' => $homeUrl,
+                    'logo' => [
+                        '@type' => 'ImageObject',
+                        'url' => asset('img/seova-logo.png')
+                    ]
+                ],
+                // Website
+                [
+                    '@type' => 'WebSite',
+                    '@id' => $websiteId,
+                    'url' => $homeUrl,
+                    'name' => 'Seova',
+                    'publisher' => ['@id' => $orgId]
+                ],
                 [
                     '@type' => 'WebPage',
                     '@id' => $toolUrl . '#webpage',
                     'url' => $toolUrl,
                     'name' => 'Word Counter & Text Analyzer | Seova Free SEO Tool',
-                    'description' => 'Free tool to count words, characters, sentences and calculate reading time. Perfect for content optimization and SEO writing.',
                     'isPartOf' => ['@id' => $websiteId],
-                    'publisher' => ['@id' => $orgId],
-                    'inLanguage' => 'en'
+                    'about' => ['@id' => $toolUrl . '#software'],
+                    'inLanguage' => 'en',
+                    'breadcrumb' => [
+                        '@type' => 'BreadcrumbList',
+                        'itemListElement' => [
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 1,
+                                'name' => 'Home',
+                                'item' => url('/')
+                            ],
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 2,
+                                'name' => 'Tools',
+                                'item' => route('tools.index')
+                            ],
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 3,
+                                'name' => 'Word Counter',
+                                'item' => $toolUrl
+                            ]
+                        ]
+                    ]
                 ],
                 [
                     '@type' => 'SoftwareApplication',
                     '@id' => $toolUrl . '#software',
                     'name' => 'SEO Word Counter & Text Analyzer',
                     'description' => 'Free online tool to count words, characters, sentences, and analyze text structure for SEO content optimization.',
-                    'applicationCategory' => 'SEO Tool',
+                    'applicationCategory' => 'BusinessApplication',
                     'operatingSystem' => 'Any',
+                    'browserRequirements' => 'Requires JavaScript. Requires HTML5.',
+                    'featureList' => ['Word Count', 'Character Count', 'Sentence Analysis', 'Paragraph Count', 'Reading Time Calculation'],
                     'offers' => [
                         '@type' => 'Offer',
                         'price' => '0',
-                        'priceCurrency' => 'USD'
-                    ]
+                        'priceCurrency' => 'USD',
+                        'availability' => 'https://schema.org/InStock'
+                    ],
+                    'provider' => ['@id' => $orgId]
                 ],
                 [
                     '@type' => 'FAQPage',
@@ -137,12 +197,32 @@ class StructuredDataService
     public function metaTagGeneratorStructuredData(): array
     {
         $toolUrl = route('tools.meta-tag-generator');
-        $websiteId = url('/') . '#website';
-        $orgId = url('/') . '#organization';
+        $homeUrl = url('/');
+        $websiteId = $homeUrl . '#website';
+        $orgId = $homeUrl . '#organization';
 
         return [
             '@context' => 'https://schema.org',
             '@graph' => [
+                // Organization
+                [
+                    '@type' => 'Organization',
+                    '@id' => $orgId,
+                    'name' => 'Seova',
+                    'url' => $homeUrl,
+                    'logo' => [
+                        '@type' => 'ImageObject',
+                        'url' => asset('img/seova-logo.png')
+                    ]
+                ],
+                // Website
+                [
+                    '@type' => 'WebSite',
+                    '@id' => $websiteId,
+                    'url' => $homeUrl,
+                    'name' => 'Seova',
+                    'publisher' => ['@id' => $orgId]
+                ],
                 [
                     '@type' => 'WebPage',
                     '@id' => $toolUrl . '#webpage',
@@ -150,21 +230,49 @@ class StructuredDataService
                     'name' => 'Meta Tag Generator | Seova Free SEO Tool',
                     'description' => 'Generate optimized meta tags for your web pages. Create SEO-friendly title tags, descriptions, and social media meta tags.',
                     'isPartOf' => ['@id' => $websiteId],
-                    'publisher' => ['@id' => $orgId],
-                    'inLanguage' => 'en'
+                    'about' => ['@id' => $toolUrl . '#software'],
+                    'inLanguage' => 'en',
+                    'mainEntity' => ['@id' => $toolUrl . '#faq'],
+                    'breadcrumb' => [
+                        '@type' => 'BreadcrumbList',
+                        'itemListElement' => [
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 1,
+                                'name' => 'Home',
+                                'item' => url('/')
+                            ],
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 2,
+                                'name' => 'Tools',
+                                'item' => route('tools.index')
+                            ],
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 3,
+                                'name' => 'Meta Tag Generator',
+                                'item' => $toolUrl
+                            ]
+                        ]
+                    ]
                 ],
                 [
                     '@type' => 'SoftwareApplication',
                     '@id' => $toolUrl . '#software',
                     'name' => 'SEO Meta Tag Generator',
                     'description' => 'Free online tool to generate and preview meta tags for better SEO and social media sharing.',
-                    'applicationCategory' => 'SEO Tool',
+                    'applicationCategory' => 'BusinessApplication',
                     'operatingSystem' => 'Any',
+                    'browserRequirements' => 'Requires JavaScript. Requires HTML5.',
+                    'featureList' => ['Title Tag Generation', 'Meta Description', 'Open Graph Tags', 'Twitter Cards', 'Canonical URL', 'Robots Meta'],
                     'offers' => [
                         '@type' => 'Offer',
                         'price' => '0',
-                        'priceCurrency' => 'USD'
-                    ]
+                        'priceCurrency' => 'USD',
+                        'availability' => 'https://schema.org/InStock'
+                    ],
+                    'provider' => ['@id' => $orgId]
                 ],
                 [
                     '@type' => 'FAQPage',
@@ -201,6 +309,248 @@ class StructuredDataService
                                 '@type' => 'Answer',
                                 'text' => 'The robots meta tag controls how search engines crawl and index your page. Common values include "index,follow" (default), "noindex,follow" (prevent indexing but follow links), and "noindex,nofollow" (prevent indexing and following links).'
                             ]
+                        ]
+                    ]
+            ]
+        ];
+    }
+
+    /**
+     * Structured data for the SERP Preview tool page
+     */
+    public function serpPreviewStructuredData(): array
+    {
+        $toolUrl = route('tools.serp');
+        $homeUrl = url('/');
+        $websiteId = $homeUrl . '#website';
+        $orgId = $homeUrl . '#organization';
+
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                // Organization
+                [
+                    '@type' => 'Organization',
+                    '@id' => $orgId,
+                    'name' => 'Seova',
+                    'url' => $homeUrl,
+                    'logo' => [
+                        '@type' => 'ImageObject',
+                        'url' => asset('img/seova-logo.png')
+                    ]
+                ],
+                // Website
+                [
+                    '@type' => 'WebSite',
+                    '@id' => $websiteId,
+                    'url' => $homeUrl,
+                    'name' => 'Seova',
+                    'publisher' => ['@id' => $orgId]
+                ],
+                [
+                    '@type' => 'WebPage',
+                    '@id' => $toolUrl . '#webpage',
+                    'url' => $toolUrl,
+                    'name' => 'SERP Preview Tool | Seova Free SEO Tool',
+                    'description' => 'Craft SEO‑friendly titles & meta descriptions and see how they may appear in Google or Bing. Fetch an existing page or write manually.',
+                    'isPartOf' => ['@id' => $websiteId],
+                    'about' => ['@id' => $toolUrl . '#software'],
+                    'inLanguage' => 'en',
+                    'breadcrumb' => [
+                        '@type' => 'BreadcrumbList',
+                        'itemListElement' => [
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 1,
+                                'name' => 'Home',
+                                'item' => url('/')
+                            ],
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 2,
+                                'name' => 'Tools',
+                                'item' => route('tools.index')
+                            ],
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 3,
+                                'name' => 'SERP Preview',
+                                'item' => $toolUrl
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    '@type' => 'SoftwareApplication',
+                    '@id' => $toolUrl . '#software',
+                    'name' => 'SERP Preview Tool',
+                    'description' => 'Free online tool to simulate how your page title and meta description might appear in search results.',
+                    'applicationCategory' => 'BusinessApplication',
+                    'operatingSystem' => 'Any',
+                    'browserRequirements' => 'Requires JavaScript. Requires HTML5.',
+                    'featureList' => ['Google SERP Preview', 'Bing SERP Preview', 'Mobile Preview', 'Desktop Preview', 'Meta Tag Fetching', 'Keyword Highlighting'],
+                    'offers' => [
+                        '@type' => 'Offer',
+                        'price' => '0',
+                        'priceCurrency' => 'USD',
+                        'availability' => 'https://schema.org/InStock'
+                    ],
+                    'provider' => ['@id' => $orgId]
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Structured data for the JSON Schema Validator tool page
+     */
+    public function jsonSchemaValidatorStructuredData(): array
+    {
+        $toolUrl = route('tools.json-schema-validator');
+        $homeUrl = url('/');
+        $websiteId = $homeUrl . '#website';
+        $orgId = $homeUrl . '#organization';
+
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                // Organization
+                [
+                    '@type' => 'Organization',
+                    '@id' => $orgId,
+                    'name' => 'Seova',
+                    'url' => $homeUrl,
+                    'logo' => [
+                        '@type' => 'ImageObject',
+                        'url' => asset('img/seova-logo.png')
+                    ]
+                ],
+                // Website
+                [
+                    '@type' => 'WebSite',
+                    '@id' => $websiteId,
+                    'url' => $homeUrl,
+                    'name' => 'Seova',
+                    'publisher' => ['@id' => $orgId]
+                ],
+                [
+                    '@type' => 'WebPage',
+                    '@id' => $toolUrl . '#webpage',
+                    'url' => $toolUrl,
+                    'name' => 'JSON Schema Validator | Seova Free SEO Tool',
+                    'description' => 'Validate your JSON-LD schemas with our free online tool. Ensure your structured data is correct and error-free for better SEO.',
+                    'isPartOf' => ['@id' => $websiteId],
+                    'about' => ['@id' => $toolUrl . '#software'],
+                    'inLanguage' => 'en',
+                    'breadcrumb' => [
+                        '@type' => 'BreadcrumbList',
+                        'itemListElement' => [
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 1,
+                                'name' => 'Home',
+                                'item' => url('/')
+                            ],
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 2,
+                                'name' => 'Tools',
+                                'item' => route('tools.index')
+                            ],
+                            [
+                                '@type' => 'ListItem',
+                                'position' => 3,
+                                'name' => 'JSON Schema Validator',
+                                'item' => $toolUrl
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    '@type' => 'SoftwareApplication',
+                    '@id' => $toolUrl . '#software',
+                    'name' => 'JSON Schema Validator',
+                    'description' => 'Free online tool to validate JSON data against JSON Schema for structured data verification and API testing.',
+                    'applicationCategory' => 'DeveloperApplication',
+                    'operatingSystem' => 'Any',
+                    'browserRequirements' => 'Requires JavaScript. Requires HTML5.',
+                    'featureList' => ['JSON Schema Validation', 'JSON-LD Testing', 'Schema Format Validation', 'Error Detection', 'Real-time Validation'],
+                    'offers' => [
+                        '@type' => 'Offer',
+                        'price' => '0',
+                        'priceCurrency' => 'USD',
+                        'availability' => 'https://schema.org/InStock'
+                    ],
+                    'provider' => ['@id' => $orgId]
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Structured data for the Tools Index page
+     */
+    public function toolsIndexStructuredData(): array
+    {
+        $toolsUrl = route('tools.index');
+        $homeUrl = url('/');
+        $websiteId = $homeUrl . '#website';
+        $orgId = $homeUrl . '#organization';
+
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                // Organization
+                [
+                    '@type' => 'Organization',
+                    '@id' => $orgId,
+                    'name' => 'Seova',
+                    'url' => $homeUrl,
+                    'logo' => [
+                        '@type' => 'ImageObject',
+                        'url' => asset('img/seova-logo.png')
+                    ]
+                ],
+                // Website
+                [
+                    '@type' => 'WebSite',
+                    '@id' => $websiteId,
+                    'url' => $homeUrl,
+                    'name' => 'Seova',
+                    'publisher' => ['@id' => $orgId]
+                ],
+                [
+                    '@type' => 'WebPage',
+                    '@id' => $toolsUrl . '#webpage',
+                    'url' => $toolsUrl,
+                    'name' => 'Free SEO Tools | Seova',
+                    'description' => 'A collection of free SEO tools to help you with your SEO tasks.',
+                    'isPartOf' => ['@id' => $websiteId],
+                    'inLanguage' => 'en',
+                    'mainEntity' => [
+                        '@type' => 'CollectionPage',
+                        'name' => 'Free SEO Tools',
+                        'hasPart' => [
+                            [
+                                '@type' => 'WebPage',
+                                'name' => 'SERP Preview',
+                                'url' => route('tools.serp'),
+                            ],
+                            [
+                                '@type' => 'WebPage',
+                                'name' => 'Word Counter',
+                                'url' => route('tools.word-counter'),
+                            ],
+                            [
+                                '@type' => 'WebPage',
+                                'name' => 'Meta Tag Generator',
+                                'url' => route('tools.meta-tag-generator'),
+                            ],
+                            [
+                                '@type' => 'WebPage',
+                                'name' => 'JSON Schema Validator',
+                                'url' => route('tools.json-schema-validator'),
+                            ],
                         ]
                     ]
                 ]

@@ -3,9 +3,13 @@
 @section('title', 'Meta Tag Generator | Seova Free SEO Tool')
 @section('description', 'Create optimized meta tags for better SEO. Generate title, description, robots, and other essential meta tags for your web pages.')
 
-@inject('structuredData', 'App\Services\StructuredDataService')
+@section('og_title', 'Meta Tag Generator | Seova Free SEO Tool')
+@section('og_description', 'Generate optimized meta tags for your web pages. Create SEO-friendly title tags, descriptions, and social media meta tags.')
+@section('twitter_title', 'Meta Tag Generator | Seova Free SEO Tool')
+@section('twitter_description', 'Generate optimized meta tags for your web pages. Create SEO-friendly title tags, descriptions, and social media meta tags.')
+
 @section('json-ld')
-{!! json_encode($structuredData->metaTagGeneratorStructuredData(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+<script type="application/ld+json">@json($structuredData, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)</script>
 @endsection
 
 @section('content')
@@ -19,13 +23,13 @@
         <!-- Left: Form Inputs -->
         <form id="metaForm" class="space-y-6" aria-labelledby="meta-form-heading">
             <h2 id="meta-form-heading" class="sr-only">Meta Tag Input Form</h2>
-            
+
             <!-- Title Tag -->
             <div>
                 <label for="pageTitle" class="block mb-1 font-medium">Title Tag <span class="text-xs text-gray-500 ml-1">(<span id="titleCount">0</span>/60)</span></label>
-                <input 
-                    type="text" 
-                    id="pageTitle" 
+                <input
+                    type="text"
+                    id="pageTitle"
                     class="w-full border rounded-md p-3 focus:ring-seova-orange focus:border-seova-orange"
                     maxlength="120"
                     placeholder="Primary Keyword - Secondary Keyword | Brand Name"
@@ -36,8 +40,8 @@
             <!-- Meta Description -->
             <div>
                 <label for="metaDesc" class="block mb-1 font-medium">Meta Description <span class="text-xs text-gray-500 ml-1">(<span id="descCount">0</span>/160)</span></label>
-                <textarea 
-                    id="metaDesc" 
+                <textarea
+                    id="metaDesc"
                     class="w-full border rounded-md p-3 focus:ring-seova-orange focus:border-seova-orange h-24"
                     maxlength="320"
                     placeholder="Write a compelling description that summarizes your page content and encourages clicks..."
@@ -71,12 +75,12 @@
             <!-- Open Graph -->
             <div class="space-y-4">
                 <h3 class="font-medium">Open Graph Tags</h3>
-                
+
                 <div>
                     <label for="ogTitle" class="block mb-1 text-sm">OG Title <span class="text-xs text-gray-500">(optional)</span></label>
-                    <input 
-                        type="text" 
-                        id="ogTitle" 
+                    <input
+                        type="text"
+                        id="ogTitle"
                         class="w-full border rounded-md p-3 focus:ring-seova-orange focus:border-seova-orange"
                         placeholder="Leave blank to use the main title"
                     />
@@ -84,8 +88,8 @@
 
                 <div>
                     <label for="ogDesc" class="block mb-1 text-sm">OG Description <span class="text-xs text-gray-500">(optional)</span></label>
-                    <textarea 
-                        id="ogDesc" 
+                    <textarea
+                        id="ogDesc"
                         class="w-full border rounded-md p-3 focus:ring-seova-orange focus:border-seova-orange h-20"
                         placeholder="Leave blank to use the meta description"
                     ></textarea>
@@ -93,9 +97,9 @@
 
                 <div>
                     <label for="ogImage" class="block mb-1 text-sm">OG Image URL <span class="text-xs text-gray-500">(recommended)</span></label>
-                    <input 
-                        type="url" 
-                        id="ogImage" 
+                    <input
+                        type="url"
+                        id="ogImage"
                         class="w-full border rounded-md p-3 focus:ring-seova-orange focus:border-seova-orange"
                         placeholder="https://example.com/image.jpg"
                     />
@@ -106,12 +110,12 @@
             <!-- Additional Tags -->
             <div class="space-y-4">
                 <h3 class="font-medium">Additional Meta Tags</h3>
-                
+
                 <div>
                     <label for="canonical" class="block mb-1 text-sm">Canonical URL <span class="text-xs text-gray-500">(recommended)</span></label>
-                    <input 
-                        type="url" 
-                        id="canonical" 
+                    <input
+                        type="url"
+                        id="canonical"
                         class="w-full border rounded-md p-3 focus:ring-seova-orange focus:border-seova-orange"
                         placeholder="https://example.com/page"
                     />
@@ -119,9 +123,9 @@
 
                 <div>
                     <label for="keywords" class="block mb-1 text-sm">Meta Keywords <span class="text-xs text-gray-500">(optional)</span></label>
-                    <input 
-                        type="text" 
-                        id="keywords" 
+                    <input
+                        type="text"
+                        id="keywords"
                         class="w-full border rounded-md p-3 focus:ring-seova-orange focus:border-seova-orange"
                         placeholder="keyword1, keyword2, keyword3"
                     />

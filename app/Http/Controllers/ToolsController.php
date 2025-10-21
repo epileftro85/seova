@@ -8,12 +8,19 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use JsonSchema\Validator;
 use JsonSchema\Constraints\Constraint;
+use App\Services\StructuredDataService;
 
 class ToolsController extends Controller
 {
+    public function __construct(private readonly StructuredDataService $structuredDataService)
+    {
+    }
+
     public function index(): View
     {
-        return view('tools.index');
+        return view('tools.index', [
+            'structuredData' => $this->structuredDataService->toolsIndexStructuredData(),
+        ]);
     }
 
     public function keywordExplorer(): View
@@ -33,17 +40,23 @@ class ToolsController extends Controller
 
     public function serpPreview(): View
     {
-        return view('tools.serp-preview');
+        return view('tools.serp-preview', [
+            'structuredData' => $this->structuredDataService->serpPreviewStructuredData(),
+        ]);
     }
 
     public function wordCounter(): View
     {
-        return view('tools.word-counter');
+        return view('tools.word-counter', [
+            'structuredData' => $this->structuredDataService->wordCounterStructuredData(),
+        ]);
     }
 
     public function metaTagGenerator(): View
     {
-        return view('tools.meta-tag-generator');
+        return view('tools.meta-tag-generator', [
+            'structuredData' => $this->structuredDataService->metaTagGeneratorStructuredData(),
+        ]);
     }
 
     public function jsonSchemaValidator(Request $request)
@@ -55,16 +68,16 @@ class ToolsController extends Controller
 
             try {
                 $schema = json_decode($request->input('schema'));
-                
+
                 // Initialize the validator
                 $validator = new Validator();
-                
+
                 // Validate the schema structure
                 $validator->validate(
                     $schema,
                     Constraint::CHECK_MODE_STRICT
                 );
-                
+
                 if ($validator->isValid()) {
                     return response()->json([
                         'valid' => true,
@@ -72,7 +85,7 @@ class ToolsController extends Controller
                         'version' => 'draft-07' // The package supports multiple drafts, default is draft-07
                     ]);
                 }
-                
+
                 // Format validation errors
                 $errors = [];
                 foreach ($validator->getErrors() as $error) {
@@ -83,12 +96,12 @@ class ToolsController extends Controller
                         'pointer' => $error['pointer'] ?? null
                     ];
                 }
-                
+
                 return response()->json([
                     'valid' => false,
                     'errors' => $errors
                 ], 422);
-                
+
             } catch (\Exception $e) {
                 return response()->json([
                     'valid' => false,
@@ -102,7 +115,9 @@ class ToolsController extends Controller
             }
         }
 
-        return view('tools.json-schema-validator');
+        return view('tools.json-schema-validator', [
+            'structuredData' => $this->structuredDataService->jsonSchemaValidatorStructuredData(),
+        ]);
     }
 
     /**

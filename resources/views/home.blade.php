@@ -13,7 +13,7 @@
 
 @php $showCTA = true; @endphp
 
-@section('meta')
+@section('json-ld')
 <script type="application/ld+json">@json($structuredData, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)</script>
 @endsection
 
