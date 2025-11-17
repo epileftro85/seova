@@ -4,10 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ToolsController;
+use App\Http\Controllers\SitemapController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy-policy');
 Route::get('/terms-of-service', [HomeController::class, 'terms'])->name('terms-of-service');
+
+// Sitemap for SEO
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 // Quote form submission
 Route::post('/quote', [QuoteController::class, 'store'])->name('quote.store');
