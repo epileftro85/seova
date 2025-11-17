@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             copyBtn.textContent = 'Copied!';
             setTimeout(() => copyBtn.textContent = 'Copy', 2000);
         } catch (err) {
-            console.error('Failed to copy text: ', err);
+            // Silently fail if clipboard access is denied
         }
     });
 

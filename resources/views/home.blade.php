@@ -224,6 +224,22 @@
             <h3 class="font-semibold text-seova-orange mb-2">What happens when I request a quote?</h3>
             <p>We'll review your site, send a personalized growth plan, and suggest services that fit your goals.</p>
         </li>
+        <li class="bg-white p-6 rounded-lg shadow">
+            <h3 class="font-semibold text-seova-orange mb-2">How long does it take to see SEO results?</h3>
+            <p>Most businesses see meaningful traffic improvements in 3-6 months with consistent SEO efforts. Quick wins like on-page optimization can show results in weeks, but long-term ranking growth requires patience and strategy. We focus on sustainable growth, not shortcuts.</p>
+        </li>
+        <li class="bg-white p-6 rounded-lg shadow">
+            <h3 class="font-semibold text-seova-orange mb-2">What's the difference between technical SEO and on-page SEO?</h3>
+            <p>Technical SEO fixes the foundation (site speed, mobile optimization, structured data), while on-page SEO targets keywords and user experience. Both are essential — think of technical SEO as the engine and on-page as the steering. We handle both to maximize your growth.</p>
+        </li>
+        <li class="bg-white p-6 rounded-lg shadow">
+            <h3 class="font-semibold text-seova-orange mb-2">How much should I budget for SEO?</h3>
+            <p>SEO budgets vary based on your industry and competition. Most small businesses invest $500-3,000/month for professional services, but our free tools and guidance are available immediately. Request a quote to get a personalized recommendation for your business.</p>
+        </li>
+        <li class="bg-white p-6 rounded-lg shadow">
+            <h3 class="font-semibold text-seova-orange mb-2">Can small businesses really compete with larger competitors in SEO?</h3>
+            <p>Absolutely. While larger companies have bigger budgets, small businesses often win by targeting specific niches, being faster to implement changes, and building stronger community connections. Smart strategy beats big spend every time — that's Seova's philosophy.</p>
+        </li>
     </ul>
 </section>
 

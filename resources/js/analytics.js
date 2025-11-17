@@ -14,7 +14,10 @@ function initAnalytics() {
        * @param {object} [data={}] - Additional data to send with the event.
        */
       track: function (eventName, data) {
-        console.log('Analytics event:', eventName, data);
+        // Send to Google Analytics if available
+        if (window.gtag) {
+          window.gtag('event', eventName, data);
+        }
       },
       /**
        * Alias for track.

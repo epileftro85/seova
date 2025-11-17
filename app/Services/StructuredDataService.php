@@ -61,8 +61,80 @@ class StructuredDataService
                         'contentUrl' => asset('img/seova-og-image.jpg'),
                     ],
                     'mainEntity' => [
-                        '@id' => $orgId,
+                        '@id' => $homeUrl . '#faq',
                     ],
+                ],
+
+                // FAQ Page
+                [
+                    '@type' => 'FAQPage',
+                    '@id' => $homeUrl . '#faq',
+                    'mainEntity' => [
+                        [
+                            '@type' => 'Question',
+                            'name' => 'What makes Seova different?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'We combine technical SEO expertise with deep data analysis to deliver growth you can measure.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'Can I use Seova without technical skills?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'Absolutely. Our tools are built for simplicity, and we guide you every step of the way.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'Are the SEO tools really free?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'Yes — supported by ads, not subscriptions. Use them anytime, no login required.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'What happens when I request a quote?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'We\'ll review your site, send a personalized growth plan, and suggest services that fit your goals.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'How long does it take to see SEO results?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'Most businesses see meaningful traffic improvements in 3-6 months with consistent SEO efforts. Quick wins like on-page optimization can show results in weeks, but long-term ranking growth requires patience and strategy. We focus on sustainable growth, not shortcuts.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'What\'s the difference between technical SEO and on-page SEO?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'Technical SEO fixes the foundation (site speed, mobile optimization, structured data), while on-page SEO targets keywords and user experience. Both are essential — think of technical SEO as the engine and on-page as the steering. We handle both to maximize your growth.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'How much should I budget for SEO?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'SEO budgets vary based on your industry and competition. Most small businesses invest $500-3,000/month for professional services, but our free tools and guidance are available immediately. Request a quote to get a personalized recommendation for your business.'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Question',
+                            'name' => 'Can small businesses really compete with larger competitors in SEO?',
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => 'Absolutely. While larger companies have bigger budgets, small businesses often win by targeting specific niches, being faster to implement changes, and building stronger community connections. Smart strategy beats big spend every time — that\'s Seova\'s philosophy.'
+                            ]
+                        ]
+                    ]
                 ]
             ]
         ];
