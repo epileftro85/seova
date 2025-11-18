@@ -33,7 +33,12 @@
         </div>
 
         @if($post->featured_image)
-            <img src="{{ $post->featured_image }}" alt="{{ $post->title }}" class="w-full max-w-2xl rounded-lg shadow-lg mb-8">
+            <picture>
+                <!-- Try WebP first (modern browsers) -->
+                <source srcset="{{ \App\Helpers\ImageHelper::webpUrl($post->featured_image) }}" type="image/webp">
+                <!-- Fallback to JPEG -->
+                <img src="{{ \App\Helpers\ImageHelper::jpgUrl($post->featured_image) }}" alt="{{ $post->title }}" class="w-full max-w-2xl rounded-lg shadow-lg mb-8" loading="lazy">
+            </picture>
         @endif
     </div>
 
@@ -50,8 +55,8 @@
 <!-- Post Content -->
 <article class="bg-gray-50 py-16 px-6">
     <div class="max-w-4xl mx-auto">
-        <div class="bg-white rounded-lg shadow-lg p-8 md:p-12 prose prose-lg max-w-none">
-            {!! nl2br(e($post->content)) !!}
+        <div class="bg-white rounded-lg shadow-lg p-8 md:p-12 ql-editor prose prose-lg max-w-none">
+            {!! $post->content !!}
         </div>
 
         <!-- Post Meta -->
@@ -81,6 +86,14 @@
                     </svg>
                     Back to Blog
                 </a>
+                @if(config('app.blog_posts_editable'))
+                <a href="{{ route('posts.edit', $post) }}" class="flex items-center justify-center md:justify-start gap-2 px-6 py-3 bg-seova-orange text-white rounded-lg hover:bg-seova-orange/90 transition font-semibold">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                    Edit Post
+                </a>
+                @endif
             </div>
         </nav>
 

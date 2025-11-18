@@ -37,7 +37,10 @@
                 @foreach($posts as $post)
                     <article class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
                         @if($post->featured_image)
-                            <img src="{{ $post->featured_image }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
+                            <picture>
+                                <source srcset="{{ \App\Helpers\ImageHelper::webpUrl($post->featured_image) }}" type="image/webp">
+                                <img src="{{ \App\Helpers\ImageHelper::jpgUrl($post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover" loading="lazy">
+                            </picture>
                         @else
                             <div class="w-full h-48 bg-gradient-to-br from-seova-orange to-seova-green flex items-center justify-center">
                                 <span class="text-white text-sm font-semibold">Featured Image</span>

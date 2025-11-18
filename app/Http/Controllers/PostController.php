@@ -25,7 +25,7 @@ class PostController extends Controller
         // Get all posts for schema (not paginated)
         $allPosts = Post::published()->latest()->get();
 
-        return view('posts.index', [
+        return view('blog.index', [
             'posts' => $posts,
             'structuredData' => $this->generateBlogIndexSchema($allPosts),
         ]);
@@ -112,7 +112,7 @@ class PostController extends Controller
             ->bySlug($slug)
             ->firstOrFail();
 
-        return view('posts.show', [
+        return view('blog.show', [
             'post' => $post,
             'structuredData' => $this->structuredDataService->postStructuredData($post),
             'faqs' => $post->getFaqs(),

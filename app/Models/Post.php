@@ -58,6 +58,13 @@ class Post extends Model
      */
     public function getFaqs(): array
     {
-        return $this->faqs ?? [];
+        $faqs = $this->faqs;
+
+        // If it's a string (JSON), decode it
+        if (is_string($faqs)) {
+            $faqs = json_decode($faqs, true);
+        }
+
+        return is_array($faqs) ? $faqs : [];
     }
 }

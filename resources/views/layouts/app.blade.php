@@ -104,10 +104,10 @@
                     <h3 class="text-xl font-semibold">Terms of Service</h3>
                     <p class="text-sm text-gray-300">Review usage rules and liability details for our free and paid offerings. <a href="{{ url('/terms-of-service') }}" class="text-seova-orange underline hover:text-seova-orange/80">View the Terms of Service</a>.</p>
                 </article>
-                <article class="space-y-2">
+                {{-- Do not use this article <article class="space-y-2">
                     <h3 class="text-xl font-semibold">Direct Contact</h3>
                     <p class="text-sm text-gray-300">Prefer email? Reach us directly at <a href="mailto:{{ $businessEmail }}" class="text-seova-orange underline hover:text-seova-orange/80">{{ $businessEmail }}</a>.</p>
-                </article>
+                </article> --}}
             </div>
         </section>
         <p>&copy; {{ date('Y') }} Seova.pro — Data-Driven SEO Virtual Assistant. All rights reserved.</p>
