@@ -630,4 +630,94 @@ class StructuredDataService
             ]
         ];
     }
+
+    /**
+     * Structured data for a single blog post (BlogPosting with FAQ schema)
+     */
+    public function postStructuredData($post): array
+    {
+        $baseUrl = url('/');
+        $postUrl = route('posts.show', $post->slug);
+        $orgId = $baseUrl . '#organization';
+        $postId = $postUrl . '#article';
+        $faqId = $postUrl . '#faq';
+
+        $graph = [
+            // Organization
+            [
+                '@type' => 'Organization',
+                '@id' => $orgId,
+                'name' => 'Seova',
+                'url' => $baseUrl,
+                'logo' => [
+                    '@type' => 'ImageObject',
+                    'url' => asset('img/seova-logo.png')
+                ]
+            ],
+            // Blog Posting
+            [
+                '@type' => 'BlogPosting',
+                '@id' => $postId,
+                'headline' => $post->seo_title ?? $post->title,
+                'description' => $post->seo_description ?? $post->excerpt ?? substr(strip_tags($post->content), 0, 160),
+                'datePublished' => $post->published_at->toIso8601String(),
+                'dateModified' => $post->updated_at->toIso8601String(),
+                'author' => [
+                    '@type' => 'Organization',
+                    '@id' => $orgId,
+                ],
+                'publisher' => [
+                    '@type' => 'Organization',
+                    '@id' => $orgId,
+                ],
+                'mainEntityOfPage' => [
+                    '@type' => 'WebPage',
+                    '@id' => $postUrl,
+                ],
+                'url' => $postUrl,
+                'wordCount' => str_word_count($post->content),
+                'keywords' => $post->seo_keywords ?? '',
+            ]
+        ];
+
+        // Add featured image if available
+        if ($post->featured_image) {
+            $graph[1]['image'] = [
+                '@type' => 'ImageObject',
+                'url' => $post->featured_image,
+                'width' => 1200,
+                'height' => 630
+            ];
+        }
+
+        // Extract and add FAQs if available
+        $faqs = $post->getFaqs();
+        if (!empty($faqs)) {
+            $faqMainEntity = [];
+            foreach ($faqs as $faq) {
+                $faqMainEntity[] = [
+                    '@type' => 'Question',
+                    'name' => $faq['question'],
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text' => $faq['answer']
+                    ]
+                ];
+            }
+
+            $graph[] = [
+                '@type' => 'FAQPage',
+                '@id' => $faqId,
+                'mainEntity' => $faqMainEntity
+            ];
+
+            // Link blog post to FAQ
+            $graph[1]['mainEntity'] = ['@id' => $faqId];
+        }
+
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => $graph
+        ];
+    }
 }

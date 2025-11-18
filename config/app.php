@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Blog Posts Editable
+    |--------------------------------------------------------------------------
+    |
+    | Enable blog post creation and editing. Set to true only in local
+    | development or when you want to allow post management.
+    |
+    */
+
+    'blog_posts_editable' => env('BLOG_POSTS_EDITABLE', false),
+
 ];

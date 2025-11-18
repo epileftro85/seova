@@ -28,3 +28,192 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+/* Quill Editor Styling - Tailwind Classes */
+
+/* Headings */
+#editor h1,
+.ql-editor h1 {
+    @apply text-4xl font-bold text-gray-900 mt-6 mb-4;
+}
+
+#editor h2,
+.ql-editor h2 {
+    @apply text-3xl font-bold text-gray-900 mt-6 mb-4;
+}
+
+#editor h3,
+.ql-editor h3 {
+    @apply text-2xl font-bold text-gray-900 mt-5 mb-3;
+}
+
+#editor h4,
+.ql-editor h4 {
+    @apply text-xl font-bold text-gray-900 mt-4 mb-3;
+}
+
+#editor h5,
+.ql-editor h5 {
+    @apply text-lg font-bold text-gray-900 mt-4 mb-2;
+}
+
+#editor h6,
+.ql-editor h6 {
+    @apply text-base font-bold text-gray-900 mt-4 mb-2;
+}
+
+/* Paragraphs */
+#editor p,
+.ql-editor p {
+    @apply text-gray-700 mb-4 leading-relaxed;
+}
+
+/* Lists */
+#editor ul,
+.ql-editor ul {
+    @apply list-disc list-inside mb-4 pl-6;
+}
+
+#editor ol,
+.ql-editor ol {
+    @apply list-decimal list-inside mb-4 pl-6;
+}
+
+#editor li,
+.ql-editor li {
+    @apply text-gray-700 mb-2;
+}
+
+#editor ul li,
+.ql-editor ul li {
+    @apply ml-4;
+}
+
+#editor ol li,
+.ql-editor ol li {
+    @apply ml-4;
+}
+
+/* Blockquotes */
+#editor blockquote,
+.ql-editor blockquote {
+    @apply border-l-4 border-seova-orange bg-orange-50 pl-4 py-2 my-4 italic text-gray-700;
+}
+
+/* Code Blocks */
+#editor pre,
+.ql-editor pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-4 font-mono text-sm;
+}
+
+#editor code,
+.ql-editor code {
+    @apply bg-gray-200 text-gray-900 px-2 py-1 rounded font-mono text-sm;
+}
+
+#editor pre code,
+.ql-editor pre code {
+    @apply bg-transparent text-gray-100 px-0 py-0;
+}
+
+/* Strong and Emphasis */
+#editor strong,
+.ql-editor strong {
+    @apply font-bold text-gray-900;
+}
+
+#editor em,
+.ql-editor em {
+    @apply italic text-gray-700;
+}
+
+#editor u,
+.ql-editor u {
+    @apply underline;
+}
+
+#editor s,
+.ql-editor s {
+    @apply line-through text-gray-600;
+}
+
+/* Links */
+#editor a,
+.ql-editor a {
+    @apply text-seova-orange hover:text-seova-orange/80 underline transition;
+}
+
+/* Images */
+#editor img,
+.ql-editor img {
+    @apply max-w-full h-auto rounded-lg my-4;
+}
+
+/* Horizontal Rule */
+#editor hr,
+.ql-editor hr {
+    @apply border-t-2 border-gray-300 my-6;
+}
+
+/* Videos */
+#editor iframe,
+.ql-editor iframe {
+    @apply w-full h-96 rounded-lg my-4;
+}
+
+/* Superscript and Subscript */
+#editor sup,
+.ql-editor sup {
+    @apply text-xs align-super;
+}
+
+#editor sub,
+.ql-editor sub {
+    @apply text-xs align-sub;
+}
+
+/* Editor Container Styling */
+#editor {
+    @apply bg-white text-gray-900;
+}
+
+.ql-editor {
+    @apply min-h-96;
+}
+
+/* Nested Lists */
+#editor li > ul,
+#editor li > ol,
+.ql-editor li > ul,
+.ql-editor li > ol {
+    @apply mt-2;
+}
+
+/* Table Styling */
+#editor table,
+.ql-editor table {
+    @apply w-full border-collapse my-4;
+}
+
+#editor td,
+#editor th,
+.ql-editor td,
+.ql-editor th {
+    @apply border border-gray-300 px-4 py-2 text-left;
+}
+
+#editor th,
+.ql-editor th {
+    @apply bg-gray-100 font-bold text-gray-900;
+}
+
+/* Text Color Support */
+#editor [style*="color"],
+.ql-editor [style*="color"] {
+    /* Preserve inline color styles from Quill */
+}
+
+/* Background Color Support */
+#editor [style*="background"],
+.ql-editor [style*="background"] {
+    /* Preserve inline background styles from Quill */
+}

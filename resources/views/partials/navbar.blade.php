@@ -12,6 +12,7 @@
             <nav class="space-x-6 hidden md:flex" role="navigation" aria-label="Main navigation">
                 <a href="{{ url('/') }}" class="text-gray-700 hover:text-seova-orange font-medium" aria-current="@if(request()->is('/')) page @endif" data-analytics-event="nav_home">Home</a>
                 <a href="{{ url('/') }}#services" class="text-gray-700 hover:text-seova-orange font-medium" data-analytics-event="nav_services">Services</a>
+                <a href="{{ route('posts.index') }}" class="text-gray-700 hover:text-seova-orange font-medium" data-analytics-event="nav_blog">Blog</a>
                 <div class="relative">
                     <button id="toolsToggle" class="text-gray-700 hover:text-seova-orange font-medium focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 rounded" aria-expanded="false" aria-haspopup="true" aria-label="Open tools menu" data-analytics-event="nav_tools_toggle">
                         Tools
@@ -43,6 +44,7 @@
             <nav class="flex flex-col space-y-3 mt-4">
                 <a href="{{ url('/') }}" class="text-gray-700 hover:text-seova-orange font-medium py-2" aria-current="@if(request()->is('/')) page @endif" data-analytics-event="navm_home">Home</a>
                 <a href="{{ url('/') }}#services" class="text-gray-700 hover:text-seova-orange font-medium py-2" data-analytics-event="navm_services">Services</a>
+                <a href="{{ route('posts.index') }}" class="text-gray-700 hover:text-seova-orange font-medium py-2" data-analytics-event="navm_blog">Blog</a>
                 <div class="py-2">
                     <button id="mobileToolsToggle" class="text-gray-700 hover:text-seova-orange font-medium focus:outline-none focus:ring-2 focus:ring-seova-orange focus:ring-offset-2 rounded w-full text-left" aria-expanded="false" aria-controls="mobileToolsMenu" aria-label="Open mobile tools menu" data-analytics-event="navm_tools_toggle">
                         Tools
