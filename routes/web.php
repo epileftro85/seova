@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ToolsController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\PostController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy-policy');
@@ -12,6 +13,10 @@ Route::get('/terms-of-service', [HomeController::class, 'terms'])->name('terms-o
 
 // Sitemap for SEO
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+// Blog posts routes
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{slug}', [PostController::class, 'show'])->name('posts.show');
 
 // Quote form submission
 Route::post('/quote', [QuoteController::class, 'store'])->name('quote.store');
