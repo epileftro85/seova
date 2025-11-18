@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -47,6 +48,14 @@ class SitemapController extends Controller
                 'priority' => '0.5',
             ],
 
+            // Blog posts index
+            [
+                'url' => route('posts.index'),
+                'lastmod' => $today,
+                'changefreq' => 'weekly',
+                'priority' => '0.8',
+            ],
+
             // Tools pages
             [
                 'url' => route('tools.index'),
@@ -79,6 +88,17 @@ class SitemapController extends Controller
                 'priority' => '0.8',
             ],
         ];
+
+        // Add all published posts dynamically
+        $posts = Post::published()->get();
+        foreach ($posts as $post) {
+            $pages[] = [
+                'url' => route('posts.show', $post->slug),
+                'lastmod' => $post->updated_at->format('Y-m-d'),
+                'changefreq' => 'monthly',
+                'priority' => '0.7',
+            ];
+        }
 
         // Build XML
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;

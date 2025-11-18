@@ -3,6 +3,8 @@
 @section('title', 'Terms of Service | Seova Virtual Assistant')
 @section('description', 'Review the terms governing your use of Seova’s SEO services, free tools, and website content.')
 @section('keywords', 'terms of service, user agreement, seova terms, seo tool terms, liability disclaimer')
+@section('json-ld')
+@endsection
 
 @section('hero')
 <section class="bg-gray-900 text-gray-100 py-20 px-6" aria-labelledby="terms-hero-heading">

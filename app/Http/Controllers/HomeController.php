@@ -27,4 +27,9 @@ class HomeController extends Controller
     {
         return view('terms-of-service');
     }
+
+    public function refund(): View
+    {
+        return view('refund-policy');
+    }
 }

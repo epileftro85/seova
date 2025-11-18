@@ -3,6 +3,8 @@
 @section('title', 'Privacy Policy | Seova Virtual Assistant')
 @section('description', 'Learn how Seova collects, uses, and protects information submitted through forms, analytics, and free SEO tools.')
 @section('keywords', 'privacy policy, data protection, seova privacy, analytics policy, contact form data')
+@section('json-ld')
+@endsection
 
 @section('hero')
 <section class="bg-gray-900 text-gray-100 py-20 px-6" aria-labelledby="privacy-hero-heading">
