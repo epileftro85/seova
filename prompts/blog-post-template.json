@@ -1,0 +1,52 @@
+{
+  "title": "[BLOG POST TITLE]",
+  "slug": "[url-friendly-slug]",
+  "excerpt": "[Brief summary 300-500 characters that hooks readers and appears in blog index]",
+  "content": "<p>[Full HTML content - 2500+ words]</p>\n\n<h2>[Main Section]</h2>\n<p>[Content with <strong>bold</strong> and <em>emphasis</em>]</p>\n\n<h3>[Subsection]</h3>\n<ul>\n  <li>[Point 1]</li>\n  <li>[Point 2]</li>\n</ul>\n\n<h4>[Specific Point]</h4>\n<p>[Details]</p>\n\n<hr>\n\n[Continue with full HTML structure...]",
+  "featured_image": "",
+  "seo_title": "[SEO Title 50-60 characters]",
+  "seo_description": "[SEO Description 150-160 characters with CTA]",
+  "seo_keywords": "keyword1, keyword2, keyword3, keyword4, keyword5",
+  "published": true,
+  "faqs": [
+    {
+      "question": "[Question 1 in natural language?]",
+      "answer": "[Plain text answer without HTML. Can be 2-3 sentences with specific details and numbers.]"
+    },
+    {
+      "question": "[Question 2?]",
+      "answer": "[Answer 2]"
+    },
+    {
+      "question": "[Question 3?]",
+      "answer": "[Answer 3]"
+    },
+    {
+      "question": "[Question 4?]",
+      "answer": "[Answer 4]"
+    },
+    {
+      "question": "[Question 5?]",
+      "answer": "[Answer 5]"
+    },
+    {
+      "question": "[Question 6?]",
+      "answer": "[Answer 6]"
+    },
+    {
+      "question": "[Question 7?]",
+      "answer": "[Answer 7]"
+    },
+    {
+      "question": "[Question 8?]",
+      "answer": "[Answer 8]"
+    }
+  ],
+  "_notes": {
+    "html_tags_allowed": ["h2", "h3", "h4", "p", "strong", "em", "ul", "ol", "li", "a", "hr", "br"],
+    "faq_format": "Plain text only - no HTML in FAQ answers",
+    "external_links": "Use target='_blank' rel='noopener'",
+    "word_count": "Aim for 2500+ words",
+    "cta_placement": "Include CTAs in middle section and conclusion"
+  }
+}
