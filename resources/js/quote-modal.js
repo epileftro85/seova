@@ -162,7 +162,8 @@ function initQuoteModal(modal) {
   function setupTriggers() {
     if (isSuppressed()) return;
 
-    setTimeout(() => openModal('timer'), AUTO_DELAY_MS);
+    // Removed timer trigger - modal now only shows based on scroll position or exit-intent
+    // setTimeout(() => openModal('timer'), AUTO_DELAY_MS);
 
     function onScroll() {
       if (isOpen) return;
