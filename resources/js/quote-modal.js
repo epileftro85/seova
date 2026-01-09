@@ -14,7 +14,7 @@ import { fireAnalytics } from './analytics';
 
 const STATE_KEY = 'seova_quote_modal_state';
 const COOLDOWN_MS = 10 * 60 * 1000; // 10 minutes
-const AUTO_DELAY_MS = 20000;
+// const AUTO_DELAY_MS = 20000; // Timer trigger disabled - using scroll (55%) and exit-intent only
 const SCROLL_THRESHOLD = 0.55;
 const MIN_TIME_BEFORE_NON_EXIT = 6000; // 6s
 const FOCUSABLE = 'a[href], area[href], input:not([disabled]):not([type=hidden]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable=true]';
@@ -190,7 +190,28 @@ function initQuoteModal(modal) {
   backdrop?.addEventListener('click', closeModal);
   closeBtn?.addEventListener('click', closeModal);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
-  modalForm?.addEventListener('submit', (e) => fireAnalytics('quote_form_submit', e));
+  
+  if (modalForm) {
+    modalForm.addEventListener('submit', (e) => {
+        // Generate Deduplication ID
+        const eventID = window.SeovaAnalytics && window.SeovaAnalytics.generateEventID 
+            ? window.SeovaAnalytics.generateEventID() 
+            : 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        
+        // Inject into form for backend CAPI
+        let hiddenInput = modalForm.querySelector('input[name="meta_event_id"]');
+        if (!hiddenInput) {
+            hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'meta_event_id';
+            modalForm.appendChild(hiddenInput);
+        }
+        hiddenInput.value = eventID;
+
+        // Fire Pixel event with same ID
+        fireAnalytics('quote_form_submit', e, {}, { eventID: eventID });
+    });
+  }
 
   /*modal.addEventListener('click', (e) => {
     fireAnalytics('quote_button_click', e);

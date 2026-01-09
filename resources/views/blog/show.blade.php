@@ -10,6 +10,22 @@
 
 @section('json-ld')
 <script type="application/ld+json">@json($structuredData, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)</script>
+
+@if(config('services.meta.pixel_id'))
+<script>
+if (window.fbq) {
+    // Wait for consent if needed, or fire if already granted/default
+    // The main app.blade.php handles revocation state.
+    // If revoked, this might not send, which is correct.
+    fbq('track', 'ViewContent', {
+        content_name: @json($post->title),
+        content_category: 'Blog Post',
+        content_ids: [@json($post->id)],
+        content_type: 'product' // 'product' is standard for content items
+    });
+}
+</script>
+@endif
 @endsection
 
 @section('hero')

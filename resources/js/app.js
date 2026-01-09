@@ -10,4 +10,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initQuoteForm(contactSection);
   initQuoteModal(modal);
-});
+});import './cookie-consent';

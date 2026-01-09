@@ -45,13 +45,27 @@
             <p>We do not sell your data. We may share it with trusted processors such as hosting providers, analytics platforms, Google Ads (for remarketing and conversion tracking), or CRM tools strictly to deliver our services. Quote submissions are retained for up to 18 months unless you request deletion. Analytics and advertising data are retained according to the defaults of the respective platforms.</p>
         </article>
         <article class="space-y-3">
-            <h2 class="text-2xl font-semibold text-seova-orange">5. Cookies &amp; Tracking</h2>
-            <p>We use first-party and third-party cookies to enable core functionality (such as remembering form states) and to gather aggregated analytics. Google Ads cookies may track visits and conversions to personalize ads and measure campaign performance. You can disable or manage cookies in your browser settings, though some features may not function as intended.</p>
+            <h2 class="text-2xl font-semibold text-seova-orange">5. Cookies &amp; Tracking Technologies</h2>
+            <p>We use cookies, pixels, and similar tracking technologies to enable core functionality, analyze website traffic, and support our marketing efforts.</p>
+            
+            <h3 class="text-xl font-medium text-gray-800">Meta Pixel &amp; Conversion API</h3>
+            <p>We use the Meta Pixel and Conversion API to understand how visitors interact with our website and to measure the effectiveness of our advertising on Facebook and Instagram. This may include tracking actions such as page views, form submissions, and button clicks.</p>
+            <p>Data collected may be used for:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li>Measuring the results of our ad campaigns.</li>
+                <li>Showing you relevant ads on Meta platforms (Retargeting).</li>
+                <li>Creating "Lookalike Audiences" to find new potential customers.</li>
+            </ul>
+            <p>You can adjust your Facebook ad preferences in your <a href="https://www.facebook.com/adpreferences/ad_settings" class="text-seova-orange underline hover:text-seova-orange/80" rel="noopener" target="_blank">Facebook Ad Settings</a>.</p>
+
+            <h3 class="text-xl font-medium text-gray-800 mt-4">Cookie Consent</h3>
+            <p>When you visit our site, we provide you with the option to accept or decline non-essential cookies. You can update your preferences at any time by clearing your browser cookies for this domain.</p>
             <p>If you prefer to opt out of Google Ads personalization, visit <a href="https://adssettings.google.com" class="text-seova-orange underline hover:text-seova-orange/80" rel="noopener" target="_blank">Google’s Ads Settings</a> or use industry opt-out tools such as the <a href="https://optout.networkadvertising.org" class="text-seova-orange underline hover:text-seova-orange/80" rel="noopener" target="_blank">Network Advertising Initiative</a>.</p>
         </article>
         <article class="space-y-3">
             <h2 class="text-2xl font-semibold text-seova-orange">6. Your Rights</h2>
             <p>You can request access, updates, or deletion of your personal information by emailing <a href="mailto:{{ config('mail.from.address') ?? 'hello@seova.pro' }}" class="text-seova-orange underline hover:text-seova-orange/80">{{ config('mail.from.address') ?? 'hello@seova.pro' }}</a>. We respond within 30 days.</p>
+            <p class="text-sm text-gray-600 mt-2"><strong>For residents of Colombia:</strong> In accordance with Statutory Law 1581 of 2012 (Habeas Data), you have the right to know, update, and rectify your personal data, as well as to revoke consent for its use.</p>
         </article>
         <article class="space-y-3">
             <h2 class="text-2xl font-semibold text-seova-orange">7. Changes to This Policy</h2>

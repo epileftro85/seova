@@ -51,16 +51,60 @@
 
     @stack('styles')
 
+    <!-- Consent Mode & Analytics -->
+    <script>
+        // Define dataLayer and helper
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        // Check stored consent
+        var storedConsent = localStorage.getItem('cookie_consent');
+        var consentState = storedConsent === 'granted' ? 'granted' : 'denied';
+
+        // Set Default Consent Mode (GA4)
+        gtag('consent', 'default', {
+            'ad_storage': consentState,
+            'ad_user_data': consentState,
+            'ad_personalization': consentState,
+            'analytics_storage': consentState
+        });
+    </script>
+
     <!-- Google tag (gtag.js) -->
     @if(env('VITE_GOOGLE_ANALYTICS_ID'))
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('VITE_GOOGLE_ANALYTICS_ID') }}"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', '{{ env('VITE_GOOGLE_ANALYTICS_ID') }}');
     </script>
+    @endif
+
+    <!-- Meta Pixel Code -->
+    @if(config('services.meta.pixel_id'))
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    fbq('init', '{{ config('services.meta.pixel_id') }}');
+    
+    // Check consent for Meta
+    if (localStorage.getItem('cookie_consent') !== 'granted') {
+        fbq('consent', 'revoke');
+    } else {
+        fbq('consent', 'grant');
+    }
+    
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id={{ config('services.meta.pixel_id') }}&ev=PageView&noscript=1"
+    /></noscript>
     @endif
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -87,6 +131,8 @@
 
     {{-- Quote Modal Partial (hidden until triggered) --}}
     @include('partials.quote-modal')
+
+    @include('partials.cookie-banner')
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white text-center py-6" role="contentinfo">

@@ -35,11 +35,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'slack' => [
-        'notifications' => [
-            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
-            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
-        ],
+    'meta' => [
+        'pixel_id' => env('VITE_META_PIXEL_ID'),
+        'access_token' => env('META_ACCESS_TOKEN'),
+        'api_version' => env('META_API_VERSION', 'v21.0'),
+        'endpoint' => 'https://graph.facebook.com',
+        'test_event_code' => env('META_TEST_EVENT_CODE'),
     ],
 
 ];

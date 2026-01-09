@@ -58,7 +58,7 @@
         </article>
         <article class="space-y-3">
             <h2 class="text-2xl font-semibold text-seova-orange">8. Governing Law</h2>
-            <p>These Terms are governed by the laws of the State of Illinois, United States, without regard to conflict-of-law principles. Disputes will be resolved through good-faith negotiations before considering formal proceedings.</p>
+            <p>These Terms are governed by the laws of the Republic of Colombia, without regard to conflict-of-law principles. Any disputes arising from these Terms shall be resolved in the courts located in Colombia.</p>
         </article>
         <article class="space-y-3">
             <h2 class="text-2xl font-semibold text-seova-orange">9. Contact</h2>
